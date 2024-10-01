@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/san-pham")
 public class SanPhamController {
-
+//123
     @GetMapping
     public String hienThi(){
         return "admin-template/san_pham/san-pham";
