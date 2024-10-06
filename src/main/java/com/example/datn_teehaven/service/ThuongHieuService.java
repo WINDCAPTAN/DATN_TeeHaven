@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ThuongHieuService {
 
-    List<ThuongHieu> findAll();
+    List<ThuongHieu> getAll();
 
+    ThuongHieu getById(Long id);
 
 }

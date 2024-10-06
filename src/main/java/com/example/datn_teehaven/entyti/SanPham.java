@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,13 +37,17 @@ public class SanPham {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "ma", length = 50, nullable = false)
+    @Column(name = "ma", length = 50, nullable = false, unique = true)
     private String ma;
 
     @Column(name = "ten", length = 255)
+    @NotBlank(message = "Tên sản phẩm không được để trống")
+    @Size(max = 255, message = "Tên sản phẩm không được vượt quá 255 ký tự")
     private String ten;
 
     @Column(name = "mo_ta")
+    @NotBlank(message = "Mô tả không được để trống")
+    @Size(max = 255, message = "Mô tả không được vượt quá 255 ký tự")
     private String moTa;
 
     @Column(name = "ngay_tao")
@@ -64,7 +69,7 @@ public class SanPham {
     @JoinColumn(name = "thuong_hieu_id", referencedColumnName = "id")
     private ThuongHieu thuongHieu;
 
-    @OneToMany(mappedBy = "sanPham",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
     private List<HinhAnhSanPham> listHinhAnhSanPham = new ArrayList<>();
 
 }
