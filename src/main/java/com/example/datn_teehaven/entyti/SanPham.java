@@ -69,7 +69,4 @@ public class SanPham {
     @JoinColumn(name = "thuong_hieu_id", referencedColumnName = "id")
     private ThuongHieu thuongHieu;
 
-    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
-    private List<HinhAnhSanPham> listHinhAnhSanPham = new ArrayList<>();
-
 }

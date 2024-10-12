@@ -109,7 +109,6 @@ public class SanPhamController {
         }
         sanPham.setNgayTao(Date.valueOf(LocalDate.now()));
         sanPham.setTrangThai(0);
-        sanPham.setListHinhAnhSanPham(hinhAnhList);
 
         sanPhamService.add(sanPham);
 
@@ -166,7 +165,6 @@ public class SanPhamController {
         sanPham.setMa(existingSanPham.getMa());
         sanPham.setNgaySua(new java.util.Date());
         sanPham.setTrangThai(existingSanPham.getTrangThai());
-        sanPham.setListHinhAnhSanPham(hinhAnhList);
 
         // Gọi hàm update của service để lưu sản phẩm và hình ảnh mới
         sanPhamService.update(sanPham);

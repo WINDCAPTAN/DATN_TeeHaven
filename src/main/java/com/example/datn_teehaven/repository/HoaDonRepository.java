@@ -21,7 +21,7 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
     @Query("Select hd from HoaDon hd where hd.trangThai=:tt order by hd.ngayTao asc")
     List<HoaDon> findByTrangThai(@Param("tt") Integer trangThai);
 
-    @Query("Select hd from HoaDon hd where hd.trangThai !=-1 and hd.trangThai !=8 order by hd.ngaySua desc")
+    @Query("Select hd from HoaDon hd where hd.trangThai !=-1 and hd.trangThai !=8 ")
     List<HoaDon> findAllOrderByNgaySua();
 
     @Query("Select hd from HoaDon hd where hd.maHoaDon=:ma")
@@ -33,13 +33,13 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
     @Query("select COUNT(hd) from HoaDon hd where hd.trangThai = -1")
     Integer countHoaDonTreo();
 
-    @Query("Select hd from HoaDon hd where hd.trangThai=:tt order by hd.ngaySua desc")
+    @Query("Select hd from HoaDon hd where hd.trangThai=:tt ")
     List<HoaDon> find5ByTrangThai(@Param("tt") Integer trangThai);
 
-    @Query(value = "select * from hoa_don where tai_khoan_id = :idTaiKhoan and trang_thai != -1 order by ngay_sua desc", nativeQuery = true)
+    @Query(value = "select * from hoa_don where tai_khoan_id = :idTaiKhoan and trang_thai != -1 ", nativeQuery = true)
     List<HoaDon> findAllHoaDonByTaiKhoanOrderByNgaySua(@Param("idTaiKhoan") Long idTaiKhoan);
 
-    @Query(value = "select * from hoa_don where tai_khoan_id = :idTaiKhoan and trang_thai = :trangThai order by ngay_sua desc", nativeQuery = true)
+    @Query(value = "select * from hoa_don where tai_khoan_id = :idTaiKhoan and trang_thai = :trangThai ", nativeQuery = true)
     List<HoaDon> findAllHoaDonByTaiKhoanAndTrangThaiOrderByNgaySua(@Param("idTaiKhoan") Long idTaiKhoan, @Param("trangThai") Integer trangThai);
 
 

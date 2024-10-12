@@ -42,14 +42,8 @@ public class HoaDonChiTiet {
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
-    @Column(name = "ngay_sua")
-    private Date ngaySua;
-
     @Column(name = "nguoi_tao", length = 100)
     private String nguoiTao;
-
-    @Column(name = "nguoi_sua", length = 100)
-    private String nguoiSua;
 
     @Column(name = "trang_thai")
     private Integer trangThai;

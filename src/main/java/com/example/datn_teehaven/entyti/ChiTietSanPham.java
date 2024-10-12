@@ -45,6 +45,9 @@ public class ChiTietSanPham {
     @Column(name = "gia_hien_hanh")
     private Long giaHienHanh;
 
+    @Column(name = "hinh_anh")
+    private String hinhAnh;
+
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayTao;
