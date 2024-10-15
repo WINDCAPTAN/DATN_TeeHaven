@@ -1,6 +1,8 @@
 package com.example.datn_teehaven.controller;
 
+import com.example.datn_teehaven.entyti.ChiTietSanPham;
 import com.example.datn_teehaven.entyti.HoaDon;
+import com.example.datn_teehaven.entyti.HoaDonChiTiet;
 import com.example.datn_teehaven.entyti.TaiKhoan;
 import com.example.datn_teehaven.service.ChiTietSanPhamSerivce;
 import com.example.datn_teehaven.service.HoaDonChiTietService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
@@ -90,4 +93,46 @@ public class BanHangController {
         return "admin-template/hoa-don-chi-tiet";
     }
 
+    @PostMapping("/hoa-don-chi-tiet/add")
+    public String addHdct(@RequestParam Long idHoaDon, @RequestParam Long idCtsp,
+                          RedirectAttributes redirectAttributes) {
+
+        Boolean cr = true;
+        HoaDonChiTiet hdct = new HoaDonChiTiet();
+
+        HoaDon hoaDon = hoaDonService.findById(idHoaDon);
+        hoaDonService.saveOrUpdate(hoaDon);
+        ChiTietSanPham ctsp = chiTietSanPhamSerivce.getById(idCtsp);
+        for (HoaDonChiTiet obj : hoaDonChiTietService.findAll()) {
+            if (obj.getHoaDon() == hoaDon) {
+                if (obj.getChiTietSanPham() == ctsp) {
+                    hdct = obj;
+                    cr = false;
+                    break;
+                }
+            }
+        }
+
+        if (cr) {
+            hdct = new HoaDonChiTiet();
+            hdct.setHoaDon(hoaDon);
+            hdct.setChiTietSanPham(ctsp);
+            hdct.setSoLuong(1);
+            hdct.setDonGia(ctsp.getGiaHienHanh());
+        } else {
+            if (ctsp.getSoLuong() > hdct.getSoLuong())
+                hdct.setSoLuong(hdct.getSoLuong() + 1);
+        }
+        hdct.setTrangThai(0);
+        hoaDonChiTietService.saveOrUpdate(hdct);
+        System.out.println(idCtsp + "idctsp");
+        System.out.println(idHoaDon + "idctsp");
+//        thongBao(redirectAttributes, "Thành công", 1);
+        redirectAttributes.addFlashAttribute("batModal", "ok");
+        if (hoaDon.getTrangThai() == -1) {
+            return "redirect:/ban-hang-tai-quay/hoa-don/" + idHoaDon;
+        } else {
+            return "redirect:/ban-hang-tai-quay/hoa-don/detail/" + idHoaDon;
+        }
+    }
 }

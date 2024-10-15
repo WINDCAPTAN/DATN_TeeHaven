@@ -33,4 +33,4 @@ build/
 .vscode/
 
 # Ignore Firebase configuration file
-src/main/resources/static/config/datn-teehaven.json
+src/main/resources/static/FileBaseJson/datn-teehaven.json

@@ -181,13 +181,6 @@
                 <tbody>
                 <tr th:each="s : ${listSP}">
                     <td th:text="${s.id}"></td>
-                    <td>
-                        <!-- Hiển thị chỉ hình ảnh đầu tiên -->
-                        <div th:if="${!#lists.isEmpty(s.listHinhAnhSanPham)}">
-                            <img th:src="${s.listHinhAnhSanPham[0].url}" alt="Ảnh sản phẩm"
-                                 style="width: 100px; height: 100px; object-fit: cover;">
-                        </div>
-                    </td>
                     <td th:text="${s.ma}"></td>
                     <td th:text="${s.ten}"></td>
                     <td>

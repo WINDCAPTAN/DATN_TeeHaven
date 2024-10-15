@@ -147,7 +147,7 @@
                             <!-- Modal -->
                             <div class="modal fade" id="error5HoaDon" tabindex="-1" role="dialog"
                                  aria-labelledby="modalTitleId" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="modalTitleId">Thông báo</h5>
@@ -343,6 +343,13 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
+<style>
+    .modal-dialog {
+        position: relative;
+        right: -27%; /* Đẩy modal sang bên phải */
+        transform: translateX(0); /* Đảm bảo modal không bị dịch chuyển thêm */
+    }
+</style>
 </body>
 
 
