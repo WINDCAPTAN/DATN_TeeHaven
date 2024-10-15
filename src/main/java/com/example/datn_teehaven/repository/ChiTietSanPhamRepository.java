@@ -2,12 +2,18 @@ package com.example.datn_teehaven.repository;
 
 import com.example.datn_teehaven.entyti.ChiTietSanPham;
 import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +21,7 @@ import java.util.List;
 
 @Repository
 public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, Long> {
+
     @Query(value = "select * from chi_tiet_san_pham where trang_thai = 0", nativeQuery = true)
     List<ChiTietSanPham> fillAllDangHoatDong();
 
@@ -141,4 +148,9 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
     @Query(value = "select * from chi_tiet_san_pham where san_pham_id = :idSanPham and mau_sac_id = :idMauSac and tay_ao_id = :idTayAo and kich_co_id = :idKichCo", nativeQuery = true)
     ChiTietSanPham findChiTietSanPham(@Param("idSanPham") Long idSanPham, @Param("idMauSac") Long idMauSac,
                                       @Param("idTayAo") Long idTayAo, @Param("idKichCo") Long idKichCo);
+
+
+
+
+
 }

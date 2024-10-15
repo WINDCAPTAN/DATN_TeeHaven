@@ -9,18 +9,24 @@ import com.example.datn_teehaven.entyti.TayAo;
 import com.example.datn_teehaven.repository.ChiTietSanPhamRepository;
 import com.example.datn_teehaven.service.ChiTietSanPhamSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+
 import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
+
 
     @Autowired
     private ChiTietSanPhamRepository repository;
@@ -37,6 +43,16 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
 
         return repository.fillAllCtspOneSanPham();
 
+    }
+
+    @Override
+    public List<ChiTietSanPham> add(List<String> listSanPham, List<String> listKichCo, List<String> listMauSac, List<String> listTayAo, List<String> listChatLieu, List<String> listSoLuong, List<String> listDonGia) {
+        return null;
+    }
+
+    @Override
+    public List<ChiTietSanPham> updateAllCtsp(List<String> listIdChiTietSp, List<String> listSanPham, List<String> listKichCo, List<String> listMauSac, List<String> listTrangThai, List<String> listChatLieu, List<String> listTayAo, List<String> listSoLuong, List<String> listDonGia) {
+        return null;
     }
 
     @Override
@@ -248,5 +264,7 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
     @Override
     public void checkSoLuongBang0() {
         repository.checkSoLuongBang0();
+
+
     }
 }
