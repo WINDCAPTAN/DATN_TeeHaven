@@ -8,6 +8,7 @@ import com.example.datn_teehaven.service.ThuongHieuService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +19,10 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
     @Autowired
     private ThuongHieuRepository thuongHieuRepository;
 
-    @Override
-    public List<ThuongHieu> findAll() {
 
+
+    @Override
+    public List<ThuongHieu> getAll() {
         Sort sort = Sort.by(Sort.Direction.DESC, "ngaySua");
         return thuongHieuRepository.findAll(sort);
 
@@ -62,7 +64,7 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
 
         for (ThuongHieu sp : thuongHieuRepository.findAll()) {
             if (sp.getTen().equalsIgnoreCase(ten)) {
-                if (!sp.getId().equals(id)){
+                if (!sp.getId().equals(id)) {
                     return false;
                 }
             }
@@ -72,15 +74,11 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
 
     @Override
     public ThuongHieu update(ThuongHieu thuongHieu) {
-
         return thuongHieuRepository.save(thuongHieu);
-
     }
 
     @Override
     public ThuongHieu getById(Long id) {
-
         return thuongHieuRepository.findById(id).get();
-
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ThuongHieuService {
 
-    List<ThuongHieu> findAll();
+    List<ThuongHieu> getAll();
 
     List<ThuongHieu> getAllDangHoatDong();
 
@@ -21,7 +21,7 @@ public interface ThuongHieuService {
 
     ThuongHieu update(ThuongHieu thuongHieu);
 
-    ThuongHieu getById(Long id);
 
+    ThuongHieu getById(Long id);
 
 }
