@@ -9,5 +9,5 @@ public interface TayAoService {
 
     List<TayAo> findAll();
 
-
+    List<TayAo> getAllDangHoatDong();
 }

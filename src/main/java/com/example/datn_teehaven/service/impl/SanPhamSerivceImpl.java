@@ -44,7 +44,8 @@ public class SanPhamSerivceImpl implements SanPhamSerivce {
 
     @Override
     public List<SanPham> getAllDangHoatDong() {
-        return null;
+
+        return repository.fillAllDangHoatDong();
 
     }
 

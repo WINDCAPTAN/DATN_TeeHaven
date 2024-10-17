@@ -39,6 +39,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             "    cts.gia_hien_hanh,\n" +
             "    cts.trang_thai,\n" +
             "    cts.san_pham_id,\n" +
+            "    cts.hinh_anh,\n" +
             "    cts.kich_co_id,\n" +
             "    cts.mau_sac_id,\n" +
             "    cts.tay_ao_id,\n" +
@@ -64,6 +65,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
             "    cts.trang_thai,\n" +
             "    cts.san_pham_id,\n" +
             "    cts.kich_co_id,\n" +
+            "    cts.hinh_anh,\n" +
             "    cts.mau_sac_id,\n" +
             "    cts.tay_ao_id,\n" +
             "    cts.ngay_tao,\n" +

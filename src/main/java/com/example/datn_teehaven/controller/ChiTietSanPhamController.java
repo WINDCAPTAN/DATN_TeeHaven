@@ -73,6 +73,10 @@ public class ChiTietSanPhamController {
 
 
     private Model getString(Model model) {
+        model.addAttribute("listKichCo", kichCoService.getAllDangHoatDong());
+        model.addAttribute("listMauSac", mauSacService.getAllDangHoatDong());
+        model.addAttribute("listSanPham", sanPhamSerivce.getAllDangHoatDong());
+        model.addAttribute("listTayAo", tayAoService.getAllDangHoatDong());
             return model;
     }
 
