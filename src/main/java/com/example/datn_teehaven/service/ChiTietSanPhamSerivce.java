@@ -50,15 +50,13 @@ public interface ChiTietSanPhamSerivce {
             List<String> listTayAo, List<String> listTrangThai,
             List<String> listSoLuong, List<String> listDonGia);
 
-    ChiTietSanPham update(ChiTietSanPham chiTietSanPham);
 
-    void checkSoLuongBang0();
 
     ChiTietSanPham saveExcel(ChiTietSanPham chiTietSanPham);
 
     void remove(Long id);
 
-    ChiTietSanPham getById(Long id);
+
 
     List<ChiTietSanPham> getAllById(Long id);
 
@@ -66,7 +64,7 @@ public interface ChiTietSanPhamSerivce {
 
     List<ChiTietSanPham> getAllCtspByIdSanPham(Long idSanPham);
 
-    List<ChiTietSanPham> fillAllDangHoatDongLonHon0();
+
 
     Page<List<ChiTietSanPham>> searchAll(Integer pageNo, Integer size, String tenSanPham, List<Long> idMauSac,
                                          List<Long> idKichCo,
