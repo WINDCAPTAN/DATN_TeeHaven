@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/san-pham")
+@RequestMapping("/admin/san-pham")
 public class SanPhamController {
 
     @Autowired
