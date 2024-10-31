@@ -27,6 +27,7 @@ public class ThuongHieu {
     private Long id;
 
     @Column(name = "ten", length = 100)
+    @NotBlank(message = "Không được trống tên")
     private String ten;
 
     @Column(name = "ngay_tao")

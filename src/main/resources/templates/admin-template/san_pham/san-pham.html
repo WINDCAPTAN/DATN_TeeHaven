@@ -26,7 +26,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="/ban-hang-tai-quay/hoa-don" class="logo d-flex align-items-center">
+        <a th:href="@{/ban-hang-tai-quay/hoa-don}" class="logo d-flex align-items-center">
             <img src="../../../static/img/logo_teehaven.png" alt="">
             <span class="d-none d-lg-block">Tee Haven</span>
         </a>
@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/san-pham">
+                    <a th:href="@{/san-pham}">
                         <i class="bi bi-circle"></i><span>Sản Phẩm</span>
                     </a>
                 </li>
@@ -76,8 +76,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/loai-de">
-                        <i class="bi bi-circle"></i><span>Loại Đế</span>
+                    <a href="/admin/tay-ao">
+                        <i class="bi bi-circle"></i><span>Tay áo</span>
                     </a>
                 </li>
                 <li>
@@ -130,7 +130,93 @@
 </aside><!-- End Sidebar-->
 
 <main id="main" class="main">
-    // code ở đây
+    <h3 class="text-muted">Quản lý sản phẩm</h3>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-header">Bộ lọc</div>
+        <div class="card-body">
+            <form th:action="@{/san-pham}" method="get" class="mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="filterName">Tên sản phẩm:</label>
+                        <input type="text" class="form-control" id="filterName" name="ten" th:value="${ten}" placeholder="Nhập tên sản phẩm">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterStatus">Trạng thái:</label>
+                        <select class="form-control" id="filterStatus" name="trangThai">
+                            <option th:value="${null}" th:text="'Chọn Trạng Thái'"></option>
+                            <option th:value="0" th:text="'Hoạt Động'"></option>
+                            <option th:value="1" th:text="'Ngừng Hoạt Động'"></option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-dark mr-2"><i class="fas fa-search"></i> Tìm kiếm</button>
+                        <a type="reset" class="btn btn-light" th:href="@{/san-pham}"><i class="fas fa-sync-alt"></i> Làm mới</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Topic List Section -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Danh sách sản phẩm</span>
+            <a class="btn btn-dark" th:href="@{/san-pham/trang-add}"><i class="fas fa-plus"></i> Thêm sản phẩm</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ảnh</th>
+                    <th>Mã</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="s : ${listSP}">
+                    <td th:text="${s.id}"></td>
+                    <td th:text="${s.ma}"></td>
+                    <td th:text="${s.ten}"></td>
+                    <td>
+                        <span th:text="${s.trangThai == 1 ? 'Ngừng Hoạt động' : 'Hoạt động'}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/san-pham/detail/'+${s.id}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                        <a href="#" class="btn btn-sm btn-secondary"><i class="fas fa-sync-alt"></i></a>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination justify-content-center">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${trangHienTai == 0} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/san-pham(page=${trangHienTai - 1}, ten=${ten}, trangThai=${trangThai})}">Trước</a>
+                </li>
+                <li class="page-item" th:if="${tongSoTrang == 0}">
+                    <span class="page-link">0</span>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, tongSoTrang - 1)}"
+                    th:unless="${tongSoTrang == 0}"
+                    th:classappend="${i == trangHienTai} ? 'active'">
+                    <a class="page-link" th:href="@{/san-pham(page=${i}, ten=${ten}, trangThai=${trangThai})}"
+                       th:text="${i + 1}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${trangHienTai + 1 == tongSoTrang} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/san-pham(page=${trangHienTai + 1}, ten=${ten}, trangThai=${trangThai})}">Tiếp</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 </main><!-- End #main -->
 

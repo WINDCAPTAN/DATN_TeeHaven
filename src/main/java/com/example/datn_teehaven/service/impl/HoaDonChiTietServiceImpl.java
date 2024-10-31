@@ -4,7 +4,10 @@ package com.example.datn_teehaven.service.impl;
 
 
 import com.example.datn_teehaven.entyti.HoaDonChiTiet;
+import com.example.datn_teehaven.repository.HoaDonChiTietRepository;
+import com.example.datn_teehaven.repository.HoaDonRepository;
 import com.example.datn_teehaven.service.HoaDonChiTietService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +16,29 @@ import java.util.List;
 public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
 
 
+    @Autowired
+    HoaDonChiTietRepository hoaDonChiTietRepository;
+
+    @Autowired
+    HoaDonRepository hoaDonRepository;
+
     @Override
     public List<HoaDonChiTiet> findAll() {
-        return null;
+        return hoaDonChiTietRepository.findAll();
+    }
+
+    @Override
+    public HoaDonChiTiet findById(Long id) {
+        return hoaDonChiTietRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        hoaDonChiTietRepository.deleteById(id);
+    }
+
+    @Override
+    public void saveOrUpdate(HoaDonChiTiet hoaDonChiTiet) {
+        hoaDonChiTietRepository.save(hoaDonChiTiet);
     }
 }

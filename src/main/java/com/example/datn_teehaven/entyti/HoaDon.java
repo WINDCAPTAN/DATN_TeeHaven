@@ -86,10 +86,6 @@ public class HoaDon {
     @DateTimeFormat(pattern = "HH:mm dd/MM/yyyy")
     private Date ngayTao;
 
-    @Column(name = "ngay_sua")
-    @DateTimeFormat(pattern = "HH:mm dd/MM/yyyy")
-    private Date ngaySua;
-
     @Column(name = "trang_thai")
     private Integer trangThai;
 

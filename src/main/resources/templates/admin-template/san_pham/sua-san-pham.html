@@ -76,8 +76,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/loai-de">
-                        <i class="bi bi-circle"></i><span>Loại Đế</span>
+                    <a href="/admin/tay-ao">
+                        <i class="bi bi-circle"></i><span>Tay áo</span>
                     </a>
                 </li>
                 <li>
@@ -130,8 +130,90 @@
 </aside><!-- End Sidebar-->
 
 <main id="main" class="main">
-    // code ở đây
+    <!-- Filter Section -->
+        <h3 class="text-muted">Sửa sản phẩm</h3>
 
+        <!-- Filter Section -->
+        <div class="card mb-4">
+            <div class="card-header">Sửa Sản Phẩm</div>
+            <div class="card-body">
+                <form th:action="@{/san-pham/update}" method="post" th:object="${sanPham}" onsubmit="return submitForm()" enctype="multipart/form-data">
+                    <div class="row">
+                        <!-- ID hidden field -->
+                        <input type="hidden" name="id" th:field="*{id}" />
+                        <input type="hidden" name="ma" th:field="*{ma}" />
+                        <!-- Tên sản phẩm -->
+                        <div class="col-md-4">
+                            <label for="ten" class="form-label">Tên sản phẩm:</label>
+                            <input type="text" class="form-control" id="ten" name="ten" th:field="*{ten}" placeholder="Nhập tên sản phẩm">
+                            <div th:if="${#fields.hasErrors('ten')}" class="text-danger">
+                                <p th:errors="*{ten}"></p>
+                            </div>
+                        </div>
+
+                        <!-- Thương Hiệu -->
+                        <div class="col-md-4">
+                            <label for="filterStatus">Thương Hiệu:</label>
+                            <select class="form-control" id="filterStatus" th:field="*{thuongHieu}">
+                                <option th:each="thuongHieu : ${listTH}"
+                                        th:value="${thuongHieu.id}" th:text="${thuongHieu.ten}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Trạng Thái</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="trangThai" th:value="0" th:field="*{trangThai}">
+                                <label class="form-check-label">
+                                    Hoạt Động
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="trangThai" th:value="1" th:field="*{trangThai}">
+                                <label class="form-check-label">
+                                    Không Hoạt Động
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Mô tả sản phẩm -->
+                        <div class="col-md-4">
+                            <label for="moTa" class="form-label">Mô Tả:</label>
+                            <input type="text" class="form-control" id="moTa" name="moTa" th:field="*{moTa}" placeholder="Nhập mô tả sản phẩm">
+                            <div th:if="${#fields.hasErrors('moTa')}" class="text-danger">
+                                <p th:errors="*{moTa}"></p>
+                            </div>
+                        </div>
+
+                        <!-- Hình ảnh -->
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Ảnh:</label>
+                            <div id="drop--area">
+                                <label for="file--input" class="button-img">
+                                    Chọn ảnh <i class="bi bi-images"></i>
+                                </label>
+                                <div id="testImg" class="image-container">
+                                    <div th:each="hinhAnh : ${sanPham.listHinhAnhSanPham}" class="col-md-3">
+                                        <img th:src="@{${hinhAnh.url}}" alt="Image" class="thumbnail" />
+                                    </div>
+                                </div>
+                                <div class="img-them">
+                                    <input type="file" id="file--input" multiple
+                                           accept="image/*" name="fileImage"
+                                           onchange="handleFilesUpdate(this.files)">
+                                    <div id="gallery"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="col-md-3 d-flex align-items-end mb-3">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Sửa</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 </main><!-- End #main -->
 
 
