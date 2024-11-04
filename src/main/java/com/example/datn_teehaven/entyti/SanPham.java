@@ -50,6 +50,9 @@ public class SanPham {
     @Size(max = 255, message = "Mô tả không được vượt quá 255 ký tự")
     private String moTa;
 
+    @Column(name = "so_luong_ton")
+    private Integer soLuongTon;
+
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
