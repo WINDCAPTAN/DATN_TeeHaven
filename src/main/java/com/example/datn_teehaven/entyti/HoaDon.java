@@ -100,6 +100,76 @@ public class HoaDon {
     @OneToMany(mappedBy = "hoaDon")
     private List<HoaDonChiTiet> lstHoaDonChiTiet;
 
+    public Long tongTienHoaDon() {
+        Long total = (long) 0;
+        for (HoaDonChiTiet hoaDonChiTiet : lstHoaDonChiTiet) {
+            total += hoaDonChiTiet.tongTien();
+        }
+        return total;
+    }
+
+    public Long tongTienHoaDonHoanTra() {
+        Long total = (long) 0;
+        for (HoaDonChiTiet hoaDonChiTiet : lstHoaDonChiTiet) {
+            if (hoaDonChiTiet.getTrangThai() == 2) {
+                total += hoaDonChiTiet.tongTien();
+            }
+        }
+        return total;
+    }
+
+
+
+    public Long tongTienHoaDonDaNhan() {
+        Long total = (long) 0;
+        for (HoaDonChiTiet hoaDonChiTiet : lstHoaDonChiTiet) {
+            if (hoaDonChiTiet.getTrangThai() == 0) {
+                total += hoaDonChiTiet.tongTien();
+            }
+        }
+        return total;
+    }
+
+
+    public Long tongTienHoaDonKhiGiam() {
+
+        return this.tongTienHoaDonDaNhan() + this.getPhiShip()-this.getGiamGia();
+    }
+
+    public Long getGiamGia() {
+        return this.tienGiam!=null?this.tienGiam:0;
+    }
+
+
+
+
+
+    public String getStringTrangThai() {
+        switch (this.trangThai) {
+            case 0:
+                return "Chờ xác nhận";
+            case 1:
+                return "Chờ giao";
+            case 2:
+                return "Đang giao";
+
+            case 3:
+                return "Hoàn thành";
+            case 4:
+                return "Chờ thanh toán";
+            case 5:
+                return "Đã hủy";
+            case 6:
+                return "Hoàn trả";
+
+            case 8:
+                return "Đơn đổi trả tạm";
+            default:
+                break;
+        }
+        return "";
+    }
+
 
 
 }

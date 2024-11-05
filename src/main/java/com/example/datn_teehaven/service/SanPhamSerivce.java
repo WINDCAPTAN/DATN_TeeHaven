@@ -35,8 +35,7 @@ public interface SanPhamSerivce {
 
 
 
-    boolean checkTenTrungSua(String ma, String ten);
+    boolean checkTenTrungSua(Long id, String ten);
 
-    Page<SanPham> search(String ten, Boolean trangThai, Pageable pageable);
 
 }

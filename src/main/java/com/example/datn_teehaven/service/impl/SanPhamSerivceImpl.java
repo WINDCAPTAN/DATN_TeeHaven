@@ -2,6 +2,7 @@ package com.example.datn_teehaven.service.impl;
 
 
 import com.example.datn_teehaven.entyti.SanPham;
+import com.example.datn_teehaven.entyti.ThuongHieu;
 import com.example.datn_teehaven.repository.SanPhamRepository;
 import com.example.datn_teehaven.service.SanPhamSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,12 @@ public class SanPhamSerivceImpl implements SanPhamSerivce {
 
     @Override
     public List<SanPham> getAllDangHoatDong() {
-
-        return repository.fillAllDangHoatDong();
-
+        return sanPhamRepo.fillAllDangHoatDong();
     }
 
     @Override
     public List<SanPham> getAllNgungHoatDong() {
-        return null;
+        return sanPhamRepo.fillAllNgungHoatDong();
     }
 
 
@@ -80,16 +79,24 @@ public class SanPhamSerivceImpl implements SanPhamSerivce {
 
     @Override
     public boolean checkTenTrung(String ten) {
-        return false;
+        for (SanPham sp : sanPhamRepo.findAll()) {
+            if (sp.getTen().equalsIgnoreCase(ten)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public boolean checkTenTrungSua(String ma, String ten) {
-        return false;
+    public boolean checkTenTrungSua(Long id, String ten) {
+        for (SanPham sp : sanPhamRepo.findAll()) {
+            if (sp.getTen().equalsIgnoreCase(ten)) {
+                if (!sp.getId().equals(id)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    @Override
-    public Page<SanPham> search(String ten, Boolean trangThai, Pageable pageable) {
-        return sanPhamRepo.search(ten,trangThai,pageable);
-    }
 }
