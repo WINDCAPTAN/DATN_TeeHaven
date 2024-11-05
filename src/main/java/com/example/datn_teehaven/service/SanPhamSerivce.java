@@ -12,25 +12,30 @@ public interface SanPhamSerivce {
 
 
     List<SanPham> getAll();
+    SanPham getById(Long id);
+
+
+    boolean checkTenTrung(String ten);
+
+    Integer genMaTuDong();
+
+    SanPham add(SanPham sanPham);
 
     List<SanPham> getAllDangHoatDong();
 
+
     List<SanPham> getAllNgungHoatDong();
 
-    SanPham add(SanPham sanPham);
+
 
     SanPham update(SanPham sanPham);
 
     void remove(Long id);
 
-    SanPham getById(Long id);
 
-    Integer genMaTuDong();
 
-    boolean checkTenTrung(String ten);
 
-    boolean checkTenTrungSua(String ma, String ten);
+    boolean checkTenTrungSua(Long id, String ten);
 
-    Page<SanPham> search(String ten, Boolean trangThai, Pageable pageable);
 
 }
