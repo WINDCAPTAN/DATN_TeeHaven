@@ -178,8 +178,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <a th:href="@{/admin/san-pham-chi-tiet/export-excel}" style="margin-left: 15%"
-                                           class="btn btn-primary">Xuất File</a>
+<!--                                        <a th:href="@{/admin/san-pham-chi-tiet/export-excel}" style="margin-left: 15%"-->
+<!--                                           class="btn btn-primary">Xuất File</a>-->
                                         <a href="/admin/san-pham-chi-tiet" style="float: right"
                                            class="btn btn-primary">
                                             <i class="bi bi-arrow-clockwise"> Làm mới</i>
@@ -290,20 +290,20 @@
                                     });
                                 </script>
 
-                                <form th:action="@{/admin/san-pham-chi-tiet/import-excel}"
-                                      style="border: 1px solid #c3c3c3;border-radius: 20px;margin-top: 2%"
-                                      enctype="multipart/form-data"
-                                      method="post" class="row">
-                                    <div class="col-md-12" style="margin-top: 3%">
-                                        <input type="file" class="form-control" name="file">
-                                    </div>
-                                    <div class="col-md-12" style="margin-top: 3%;margin-bottom: 3%">
-                                        <div class="check-loi" th:text="${thongBaoLoiImport}"></div>
-                                        <button type="submit" style="float: right" class="btn btn-success">Nhập Excel</button>
-                                        <a th:href="@{/admin/san-pham-chi-tiet/file-mau-excel}" style="float: right;margin-right: 10%"
-                                           class="btn btn-primary">Xuất File Mẫu</a>
-                                    </div>
-                                </form>
+<!--                                <form th:action="@{/admin/san-pham-chi-tiet/import-excel}"-->
+<!--                                      style="border: 1px solid #c3c3c3;border-radius: 20px;margin-top: 2%"-->
+<!--                                      enctype="multipart/form-data"-->
+<!--                                      method="post" class="row">-->
+<!--                                    <div class="col-md-12" style="margin-top: 3%">-->
+<!--                                        <input type="file" class="form-control" name="file">-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-12" style="margin-top: 3%;margin-bottom: 3%">-->
+<!--                                        <div class="check-loi" th:text="${thongBaoLoiImport}"></div>-->
+<!--                                        <button type="submit" style="float: right" class="btn btn-success">Nhập Excel</button>-->
+<!--                                        <a th:href="@{/admin/san-pham-chi-tiet/file-mau-excel}" style="float: right;margin-right: 10%"-->
+<!--                                           class="btn btn-primary">Xuất File Mẫu</a>-->
+<!--                                    </div>-->
+<!--                                </form>-->
 
                                 <!-- from thêm chi tiết sản phẩm -->
                                 <form th:action="@{/admin/san-pham-chi-tiet/add}" class="row g-3"
