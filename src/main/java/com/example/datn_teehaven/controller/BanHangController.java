@@ -279,5 +279,5 @@ public class BanHangController {
         }
         return "/admin-template/detail-hoa-don";
     }
-//123
+//123456
 }
