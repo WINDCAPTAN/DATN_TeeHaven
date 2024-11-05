@@ -282,13 +282,14 @@
                                                 <th scope="col" style="width: 18%">Trạng Thái</th>
                                                 <th scope="col" style="width: 12%">Số Lượng</th>
                                                 <th scope="col" style="width: 17%">Đơn Giá</th>
+                                                <th scope="col" style="width: 17%">Hình ảnh</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr th:each="chiTietSanPham,iterStat : ${listChiTietSP}">
-
                                                 <input type="hidden" th:value="${chiTietSanPham.id}"
                                                        name="listIdChiTietSp">
+
                                                 <select hidden=class="form-control" name="listSanPham"
                                                         aria-label="Default select example">
                                                     <option th:value="${chiTietSanPham.sanPham.id}"
@@ -364,6 +365,9 @@
                                                            th:value="${chiTietSanPham.giaHienHanh}">
                                                     <div class="error-message" th:id="'checkDonGia' + ${iterStat.index}"
                                                          style="display: none;color: #ff0000;font-size: 14px;font-weight: bold;"></div>
+                                                </td>
+                                                <td>
+                                                    <img th:src="${chiTietSanPham.hinhAnh}" alt="Hình ảnh sản phẩm" style="width: 100px; height: auto;"/>
                                                 </td>
                                             </tr>
                                             </tbody>

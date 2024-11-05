@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.ArrayList;
@@ -43,15 +44,7 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
 
     }
 
-    @Override
-    public List<ChiTietSanPham> add(List<String> listSanPham, List<String> listKichCo, List<String> listMauSac, List<String> listTayAo, List<String> listChatLieu, List<String> listSoLuong, List<String> listDonGia) {
-        return null;
-    }
 
-    @Override
-    public List<ChiTietSanPham> updateAllCtsp(List<String> listIdChiTietSp, List<String> listSanPham, List<String> listKichCo, List<String> listMauSac, List<String> listTrangThai, List<String> listChatLieu, List<String> listTayAo, List<String> listSoLuong, List<String> listDonGia) {
-        return null;
-    }
 
     @Override
     public List<ChiTietSanPham> getAllDangHoatDong() {
@@ -71,10 +64,12 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
     public List<ChiTietSanPham> add(
             List<String> listSanPham, List<String> listKichCo,
             List<String> listMauSac, List<String> listTayAo,
-            List<String> listSoLuong, List<String> listDonGia) {
+            List<String> listSoLuong, List<String> listDonGia,
+            List<String> listHinhAnh) { // Thêm tham số cho hình ảnh
 
         List<ChiTietSanPham> chiTietSanPhamList = new ArrayList<>();
         List<ChiTietSanPham> listCtspCheck = repository.findAll();
+
         for (int i = 0; i < listSanPham.size(); i++) {
             ChiTietSanPham chiTietSanPham = new ChiTietSanPham();
             boolean isUpdated = false;
@@ -83,19 +78,18 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
                 if (listCheck.getSanPham().getId().equals(Long.valueOf(listSanPham.get(i))) &&
                         listCheck.getKichCo().getId().equals(Long.valueOf(listKichCo.get(i))) &&
                         listCheck.getMauSac().getId().equals(Long.valueOf(listMauSac.get(i))) &&
-                        listCheck.getTayAo().getId().equals(Long.valueOf(listTayAo.get(i)))
-                ) {
+                        listCheck.getTayAo().getId().equals(Long.valueOf(listTayAo.get(i)))) {
+
                     int soLuongMoi = Integer.parseInt(listSoLuong.get(i));
                     listCheck.setSoLuong(listCheck.getSoLuong() + soLuongMoi);
                     listCheck.setGiaHienHanh(Long.valueOf(listDonGia.get(i)));
-                    listCheck.setTrangThai(0);
-                    chiTietSanPham.setNgaySua(new Date());
+                    listCheck.setTrangThai(0); // Cập nhật trạng thái
+                    listCheck.setNgaySua(new Date());
+                    listCheck.setHinhAnh(listHinhAnh.get(i)); // Lưu URL hình ảnh
 
                     ChiTietSanPham updatedChiTietSanPham = repository.save(listCheck);
                     chiTietSanPhamList.add(updatedChiTietSanPham);
-
                     isUpdated = true;
-
                     break;
                 }
             }
@@ -107,27 +101,28 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
                 chiTietSanPham.setTayAo(TayAo.builder().id(Long.valueOf(listTayAo.get(i))).build());
                 chiTietSanPham.setSoLuong(Integer.parseInt(listSoLuong.get(i)));
                 chiTietSanPham.setGiaHienHanh(Long.valueOf(listDonGia.get(i)));
-                chiTietSanPham.setTrangThai(0);
+                chiTietSanPham.setTrangThai(0); // Trạng thái mới
                 chiTietSanPham.setNgayTao(new Date());
                 chiTietSanPham.setNgaySua(new Date());
+                chiTietSanPham.setHinhAnh(listHinhAnh.get(i)); // Lưu URL hình ảnh
 
                 if (chiTietSanPham.getSoLuong() > 0) {
                     ChiTietSanPham savedChiTietSanPham = repository.save(chiTietSanPham);
                     chiTietSanPhamList.add(savedChiTietSanPham);
                 }
             }
-
         }
-
         return chiTietSanPhamList;
     }
+
+
 
     @Override
     public List<ChiTietSanPham> updateAllCtsp(
             List<String> listIdChiTietSp, List<String> listSanPham,
             List<String> listKichCo, List<String> listMauSac,
             List<String> listTayAo, List<String> listTrangThai,
-            List<String> listSoLuong, List<String> listDonGia) {
+            List<String> listSoLuong, List<String> listDonGia, List<String> listHinhAnh) {
         ChiTietSanPham chiTietSanPhamNew = this.getById(Long.valueOf(listIdChiTietSp.get(0)));
         List<ChiTietSanPham> chiTietSanPhamList = new ArrayList<>();
 
@@ -145,6 +140,7 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
             chiTietSanPham.setNgaySua(new Date());
             ChiTietSanPham savedChiTietSanPham = repository.save(chiTietSanPham);
             chiTietSanPhamList.add(savedChiTietSanPham);
+            chiTietSanPham.setHinhAnh(listHinhAnh.get(i));
         }
 
         return chiTietSanPhamList;
@@ -213,47 +209,7 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
 
     }
 
-    @Override
-    public List<Long> getAllIdMauSacCTSP() {
-        return repository.getAllIdMauSacCTSP();
-    }
 
-    @Override
-    public List<Long> getAllIdKichCoCTSP() {
-        return repository.getAllIdKichCoCTSP();
-    }
-
-    @Override
-    public List<Long> getAllIdTayAoCTSP() {
-        return repository.getAllIdTayAoCTSP();
-    }
-
-    @Override
-    public List<Long> getAllIdThuongHieuCTSP() {
-        return repository.getAllIdThuongHieuCTSP();
-    }
-
-    @Override
-    public Long getAllMinGiaCTSP() {
-        return repository.getAllMinGiaCTSP();
-    }
-
-    @Override
-    public Long getAllMaxGiaCTSP() {
-        return repository.getAllMaxGiaCTSP();
-    }
-
-    @Override
-    public Integer checkPage(Integer page) {
-        Integer sizeList = repository.findAll().size();
-        Integer pageCount = (int) Math.ceil((double) sizeList / 5);
-        if (page >= pageCount) {
-            page = 0;
-        } else if (page < 0) {
-            page = pageCount - 1;
-        }
-        return page;
-    }
 
     public List<Object[]> danhSachHangSapHet(Integer soLuong) {
         return repository.danhSachHangSapHet(soLuong);

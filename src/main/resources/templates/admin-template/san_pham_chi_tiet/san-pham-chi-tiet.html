@@ -193,11 +193,12 @@
                                     <thead>
                                     <tr>
                                         <th>STT</th>
+                                        <th>Ảnh</th>
                                         <th>Tên Sản Phẩm</th>
                                         <!--                                        <th>Số Lượng</th>-->
                                         <!--                                       <th>Kích Cỡ</th>-->
                                         <!--                                        <th>Màu Sắc</th>-->
-                                        <th>Thương Hiệu</th>
+                                        <th>Thương hiệu</th>
                                         <th>Giá Bán</th>
                                         <th>Trạng Thái</th>
                                         <th>Hành Động</th>
@@ -206,10 +207,13 @@
                                     <tbody>
                                     <tr th:each="chiTietSP,iterStat : ${listChiTietSP}">
                                         <td th:text="${iterStat.index+1}"></td>
+                                        <td>
+                                            <img th:src="${chiTietSP.hinhAnh}" alt="Hình ảnh sản phẩm" style="width: 100px; height: auto;"/>
+                                        </td>
                                         <td th:text="${chiTietSP.sanPham.ten}"></td>
                                         <!--                                        <td th:text="${chiTietSP.soLuong}"></td>-->
                                         <!--                                        <td th:text="${chiTietSP.kichCo.ten}"></td>-->
-                                        <!--                                        <td th:text="${chiTietSP.tayAo.ten}"></td>-->
+                                        <!--                                                                                <td th:text="${chiTietSP.tayAo.ten}"></td>-->
                                         <td th:text="${chiTietSP.sanPham.thuongHieu.ten}"></td>
                                         <td th:text="${chiTietSP.giaHienHanh+' VNĐ'}"></td>
 
@@ -249,34 +253,7 @@
 
                             <!-- chi tiết sp - tạo mới -->
                             <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
-                                <!--                                <script th:if="${checkTabTest=='true'}">-->
-                                <!--                                    // Đoạn mã JavaScript để chuyển sang tab "Tạo mới" nếu có lỗi-->
-                                <!--                                    document.addEventListener("DOMContentLoaded", function () {-->
-                                <!--                                        // Kiểm tra nếu có lỗi-->
-                                <!--                                        var hasError = true; // Đây là biến đại diện cho việc có lỗi-->
 
-                                <!--                                        if (hasError) {-->
-                                <!--                                            // Sử dụng JavaScript để chuyển sang tab "Tạo mới"-->
-                                <!--                                            var createTab = document.getElementById("create-tab");-->
-                                <!--                                            createTab.classList.add("active");-->
-                                <!--                                            createTab.setAttribute("aria-selected", "true");-->
-
-                                <!--                                            // Hiển thị nội dung của tab "Tạo mới"-->
-                                <!--                                            var createTabContent = document.getElementById("create");-->
-                                <!--                                            createTabContent.classList.add("active", "show");-->
-
-                                <!--                                            // Loại bỏ lớp active khỏi tab "Danh Sách"-->
-                                <!--                                            var listTab = document.getElementById("list-tab");-->
-                                <!--                                            listTab.classList.remove("active");-->
-                                <!--                                            listTab.setAttribute("aria-selected", "false");-->
-
-                                <!--                                            // Ẩn nội dung của tab "Danh Sách"-->
-                                <!--                                            var listTabContent = document.getElementById("list");-->
-                                <!--                                            listTabContent.classList.remove("active", "show");-->
-                                <!--                                        }-->
-                                <!--                                    });-->
-
-                                <!--                                </script>-->
                                 <script th:if="${checkTab=='true'}">
                                     // Đoạn mã JavaScript để chuyển sang tab "Tạo mới" nếu có lỗi
                                     document.addEventListener("DOMContentLoaded", function () {
@@ -418,7 +395,7 @@
                                             </div>
                                         </div>
                                     </div>
-<!--                                    lay sp-->
+                                    <!--                                    lay sp-->
                                     <div class="col-12">
                                         <table class="table" style="table-layout: fixed;">
                                             <thead id="tableThead">
@@ -549,25 +526,31 @@
                                                         "listMauSac",
                                                         "listTayAo",
                                                         "listSoLuong",
-                                                        "listDonGia"
+                                                        "listDonGia",
+                                                        "listHinhAnh" // Thêm trường cho hình ảnh
                                                     ];
+
                                                     const fieldId = [
                                                         "checkSanPham",
                                                         "checkKichCo",
                                                         "checkMauSac",
                                                         "checkTayAo",
                                                         "checkSoLuong",
-                                                        "checkDonGia"
+                                                        "checkDonGia",
+                                                        "checkHinhAnh" // Thêm trường cho kiểm tra hình ảnh
                                                     ];
+
                                                     const fieldIdInput = [
                                                         "checkSanPhamInput",
                                                         "checkKichCoInput",
                                                         "checkMauSacInput",
                                                         "checkTayAoInput",
                                                         "checkSoLuongInput",
-                                                        "checkDonGiaInput"
+                                                        "checkDonGiaInput",
+                                                        "checkHinhAnhInput" // Thêm trường cho input hình ảnh
                                                     ];
-                                                    const fieldTypes = ["select", "select", "select", "select", "text", "text" ]; // Loại của từng ô
+
+                                                    const fieldTypes = ["select", "select", "select", "select", "text", "text", "file"]; // Định nghĩa loại của từng ô
                                                     let rowCount = 1;
                                                     if (kichCoValues.length > 0 && mauSacValues.length > 0) {
                                                         nhapFullDuLieu.style.display = "block";
@@ -576,7 +559,7 @@
                                                             kichCoLabels.forEach(kichCoLabel => {
                                                                 const row = tableBody.insertRow();
                                                                 const cells = [
-                                                                    sanPhamLabels[0], kichCoLabel, mauSacLabel, tayAoLabels[0], '', ''
+                                                                    sanPhamLabels[0], kichCoLabel, mauSacLabel, tayAoLabels[0], '', '',''
                                                                 ];
                                                                 cells.forEach((cellData, index) => {
                                                                     const cell = row.insertCell();
@@ -599,9 +582,55 @@
                                                                             }
                                                                         }
 
-
                                                                         cell.appendChild(select);
-                                                                    } else {
+                                                                    } else if (fieldTypes[index] === "file") {
+                                                                        const input = document.createElement("input");
+                                                                        input.type = "file";
+                                                                        input.className = "form-control";
+                                                                        input.name = fieldNames[index];
+                                                                        input.multiple = true; // Cho phép chọn nhiều hình ảnh
+                                                                        input.accept = "image/*"; // Chỉ cho phép file hình ảnh
+
+                                                                        // Tạo một container để hiển thị hình ảnh
+                                                                        const imagePreviewContainer = document.createElement("div");
+                                                                        imagePreviewContainer.className = "image-preview-container";
+                                                                        imagePreviewContainer.style.display = "flex"; // Sử dụng flex để hiển thị theo chiều ngang
+                                                                        imagePreviewContainer.style.flexDirection = "row"; // Đảm bảo hướng là ngang
+                                                                        imagePreviewContainer.style.overflowX = "auto"; // Cho phép cuộn nếu có quá nhiều ảnh
+                                                                        imagePreviewContainer.style.gap = "10px"; // Khoảng cách giữa các ảnh
+                                                                        imagePreviewContainer.style.marginTop = "10px"; // Khoảng cách giữa input và ảnh
+
+                                                                        input.addEventListener("change", function() {
+                                                                            imagePreviewContainer.innerHTML = ""; // Xóa ảnh cũ mỗi khi chọn mới
+
+                                                                            if (input.files.length > 5) {
+                                                                                alert("Bạn chỉ có thể chọn tối đa 5 hình ảnh.");
+                                                                                input.value = ""; // Xóa ảnh đã chọn nếu quá giới hạn
+                                                                                return;
+                                                                            }
+
+                                                                            // Lặp qua các file đã chọn và tạo ảnh xem trước
+                                                                            for (let i = 0; i < input.files.length; i++) {
+                                                                                const file = input.files[i];
+                                                                                const reader = new FileReader();
+                                                                                reader.onload = function(e) {
+                                                                                    const img = document.createElement("img");
+                                                                                    img.src = e.target.result;
+                                                                                    img.style.width = "100px"; // Đặt chiều rộng cố định cho tất cả ảnh
+                                                                                    img.style.height = "100px"; // Đặt chiều cao cố định cho tất cả ảnh
+                                                                                    img.style.objectFit = "cover"; // Đảm bảo ảnh hiển thị vừa khít
+                                                                                    img.style.borderRadius = "5px"; // Tùy chọn: bo tròn góc ảnh
+
+                                                                                    imagePreviewContainer.appendChild(img); // Thêm ảnh vào container
+                                                                                };
+                                                                                reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL
+                                                                            }
+                                                                        });
+
+                                                                        cell.appendChild(input); // Thêm input vào ô
+                                                                        cell.appendChild(imagePreviewContainer); // Thêm container hiển thị hình ảnh vào ô
+                                                                    }
+                                                                    else {
                                                                         const input = document.createElement("input");
                                                                         input.type = "number";
                                                                         input.className = "form-control";
@@ -612,6 +641,7 @@
                                                                         input.id = fieldIdInput[index] + rowCount;
 
                                                                         cell.appendChild(input);
+
                                                                         // Thêm một thẻ div để hiển thị thông báo lỗi
                                                                         const errorDiv = document.createElement("div");
                                                                         errorDiv.className = "error-message"; // Thêm class để dễ dàng tùy chỉnh CSS
@@ -619,8 +649,6 @@
                                                                         errorDiv.style.cssText = "color: #ff0000;font-size: 14px;font-weight: bold;";
                                                                         errorDiv.id = fieldId[index] + rowCount;
                                                                         rowCount++;
-                                                                        // Thêm nội dung thông báo lỗi mặc định
-                                                                        // errorDiv.innerHTML = "Vui lòng nhập thông tin hợp lệ.";
 
                                                                         // Thêm thẻ div vào cell
                                                                         cell.appendChild(errorDiv);

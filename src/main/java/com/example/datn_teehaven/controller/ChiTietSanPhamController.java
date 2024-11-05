@@ -1,6 +1,7 @@
 package com.example.datn_teehaven.controller;
 
 import com.example.datn_teehaven.entyti.ChiTietSanPham;
+import com.example.datn_teehaven.entyti.HinhAnhSanPham;
 import com.example.datn_teehaven.entyti.SanPham;
 import com.example.datn_teehaven.repository.ChiTietSanPhamRepository;
 import com.example.datn_teehaven.repository.KichCoRepository;
@@ -14,8 +15,15 @@ import com.example.datn_teehaven.service.MauSacService;
 import com.example.datn_teehaven.service.SanPhamSerivce;
 import com.example.datn_teehaven.service.TayAoService;
 import com.example.datn_teehaven.service.ThuongHieuService;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.firebase.cloud.StorageClient;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,8 +36,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/san-pham-chi-tiet")
@@ -77,7 +89,8 @@ public class ChiTietSanPhamController {
         model.addAttribute("listMauSac", mauSacService.getAllDangHoatDong());
         model.addAttribute("listSanPham", sanPhamSerivce.getAllDangHoatDong());
         model.addAttribute("listTayAo", tayAoService.getAllDangHoatDong());
-            return model;
+        model.addAttribute("listThuongHieu", thuongHieuService.getAllDangHoatDong());
+        return model;
     }
 
     @GetMapping()
@@ -159,14 +172,28 @@ public class ChiTietSanPhamController {
             @RequestParam("listTrangThai") List<String> listTrangThai,
             @RequestParam("listSoLuong") List<String> listSoLuong,
             @RequestParam("listDonGia") List<String> listDonGia,
+            @RequestParam("listHinhAnh") List<MultipartFile> listHinhAnh,
             RedirectAttributes attributes
 
-    ) {
+    ) throws IOException {
+        List<String> imageUrls = new ArrayList<>();
+
+        for (MultipartFile hinhAnh : listHinhAnh) {
+            // Upload hình ảnh lên Firebase Storage và lấy URL
+            String imageUrl = uploadImageToFirebase(hinhAnh);
+            if (imageUrl == null) {
+                attributes.addFlashAttribute("checkThongBao", "uploadHinhAnhThatBai");
+                return "redirect:/admin/san-pham-chi-tiet";
+            }
+            imageUrls.add(imageUrl); // Lưu URL vào danh sách
+        }
         attributes.addFlashAttribute("checkThongBao", "thanhCong");
-        chiTietSanPhamSerivce.updateAllCtsp(listIdChiTietSp, listSanPham, listKichCo, listMauSac,
-                listTayAo, listTrangThai, listSoLuong, listDonGia);
+        chiTietSanPhamSerivce.updateAllCtsp(listIdChiTietSp, listSanPham, listKichCo, listMauSac ,
+                listTayAo, listTrangThai, listSoLuong, listDonGia, imageUrls);
         return "redirect:/admin/san-pham-chi-tiet";
     }
+    @Value("${app.firebase.bucket.name}")
+    private String bucketName;
 
     @PostMapping("/add")
     public String add(
@@ -176,11 +203,37 @@ public class ChiTietSanPhamController {
             @RequestParam("listTayAo") List<String> listTayAo,
             @RequestParam("listSoLuong") List<String> listSoLuong,
             @RequestParam("listDonGia") List<String> listDonGia,
+            @RequestParam("listHinhAnh") List<MultipartFile> listHinhAnh, // Thay đổi thành List nếu bạn muốn nhiều hình ảnh
             RedirectAttributes attributes
-    ) {
+    ) throws IOException {
+        List<String> imageUrls = new ArrayList<>();
+
+        for (MultipartFile hinhAnh : listHinhAnh) {
+            // Upload hình ảnh lên Firebase Storage và lấy URL
+            String imageUrl = uploadImageToFirebase(hinhAnh);
+            if (imageUrl == null) {
+                attributes.addFlashAttribute("checkThongBao", "uploadHinhAnhThatBai");
+                return "redirect:/admin/san-pham-chi-tiet";
+            }
+            imageUrls.add(imageUrl); // Lưu URL vào danh sách
+        }
+
+        // Gọi phương thức add trong service với danh sách URL hình ảnh
+        chiTietSanPhamSerivce.add(listSanPham, listKichCo, listMauSac, listTayAo, listSoLuong, listDonGia, imageUrls);
         attributes.addFlashAttribute("checkThongBao", "thanhCong");
-        chiTietSanPhamSerivce.add(listSanPham, listKichCo, listMauSac, listTayAo, listSoLuong, listDonGia);
         return "redirect:/admin/san-pham-chi-tiet";
+    }
+
+    // Hàm upload hình ảnh lên Firebase Storage và trả về URL của hình ảnh
+    private String uploadImageToFirebase(MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        // Upload file to Firebase Storage
+        StorageClient.getInstance().bucket(bucketName).create(fileName, file.getBytes(), file.getContentType());
+
+        // Retrieve the download URL
+        String imageUrl = String.format("https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media", bucketName, fileName);
+
+        return imageUrl;
     }
 
 }
