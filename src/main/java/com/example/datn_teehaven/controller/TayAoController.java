@@ -62,12 +62,14 @@ public class TayAoController {
         // Kiểm tra trường trống
         if (tayAo.getTen() == null || tayAo.getTen().trim().isEmpty()) {
             result.rejectValue("ten", "error.tayAo", "Tên tay áo không được để trống.");
+            model.addAttribute("checkThongBao", "thaiBai");
             model.addAttribute("listTayAo", tayAoService.findAll());
             return "/admin-template/tay_ao/sua-tay-ao"; // Giữ nguyên trang
         }
 
         // Kiểm tra lỗi trong quá trình nhập dữ liệu
         if (result.hasErrors()) {
+            model.addAttribute("checkThongBao", "thaiBai");
             model.addAttribute("listTayAo", tayAoService.findAll());
             return "/admin-template/tay_ao/sua-tay-ao"; // Giữ nguyên trang
         }
@@ -75,6 +77,7 @@ public class TayAoController {
         // Kiểm tra ký tự đặc biệt trong tên kích cỡ
         if (!tayAoService.isTenValid(tayAo.getTen())) {
             result.rejectValue("ten", "error.tayAo", "Tên tay áo không được chứa ký tự đặc biệt.");
+            model.addAttribute("checkThongBao", "thaiBai");
             model.addAttribute("listTayAo", tayAoService.findAll());
             return "/admin-template/tay_ao/sua-tay-ao"; // Giữ nguyên trang
         }
@@ -82,6 +85,7 @@ public class TayAoController {
         // Kiểm tra trùng tên khi cập nhật
         if (!tayAoService.checkTenTrungSua(tayAo.getId(), tayAo.getTen())) {
             model.addAttribute("checkTenTrung", "Tay áo đã tồn tại");
+            model.addAttribute("checkThongBao", "thaiBai");
             model.addAttribute("listTayAo", tayAoService.findAll());
             return "/admin-template/tay_ao/sua-tay-ao"; // Giữ nguyên trang
         }
@@ -91,7 +95,7 @@ public class TayAoController {
         tayAoService.update(tayAo);
 
         // Lưu thông báo và chuyển hướng
-        redirectAttributes.addFlashAttribute("checkThongBaoUpdate", "thanhCongUpdate");
+        redirectAttributes.addFlashAttribute("checkThongBao", "thanhCong");
         return "redirect:/admin/tay-ao"; // Chuyển hướng
     }
 
@@ -111,6 +115,7 @@ public class TayAoController {
         // Kiểm tra trường trống
         if (tayAo.getTen() == null || tayAo.getTen().trim().isEmpty()) {
             result.rejectValue("ten", "error.tayAo", "Tên tay áo không được để trống.");
+            model.addAttribute("checkThongBao", "thaiBai");
             model.addAttribute("listTayAo", tayAoService.findAll());
             return "/admin-template/kich_co/tay-ao"; // Giữ nguyên trang
         }
@@ -118,18 +123,22 @@ public class TayAoController {
         // Kiểm tra lỗi trong quá trình nhập dữ liệu
         if (result.hasErrors()) {
             model.addAttribute("listTayAo", tayAoService.findAll());
+            model.addAttribute("checkThongBao", "thaiBai");
             return "/admin-template/tay_ao/tay-ao"; // Giữ nguyên trang
         }
 
         // Kiểm tra ký tự đặc biệt trong tên kích cỡ
         if (!tayAoService.isTenValid(tayAo.getTen())) {
             result.rejectValue("ten", "error.tayAo", "Tên tay áo không được chứa ký tự đặc biệt.");
+            model.addAttribute("checkThongBao", "thaiBai");
             model.addAttribute("listTayAo", tayAoService.findAll());
             return "/admin-template/tay_ao/tay-ao"; // Giữ nguyên trang
         }
 
         // Kiểm tra trùng tên khi thêm
         if (!tayAoService.checkTenTrung(tayAo.getTen())) {
+
+            model.addAttribute("checkThongBao", "thaiBai");
             model.addAttribute("checkTenTrung", "Tay áo đã tồn tại");
             model.addAttribute("listTayAo", tayAoService.findAll());
             return "/admin-template/tay_ao/them-tay-ao"; // Giữ nguyên trang
@@ -141,7 +150,7 @@ public class TayAoController {
         tayAo.setTrangThai(0);
         tayAoService.save(tayAo);
 
-        redirectAttributes.addFlashAttribute("checkThongBaoAdd", "thanhCongAdd"); // Thêm thông báo cho việc thêm
+        redirectAttributes.addFlashAttribute("checkThongBao", "thanhCong");
         return "redirect:/admin/tay-ao";
     }
 }

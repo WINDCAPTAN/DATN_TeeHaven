@@ -12,6 +12,7 @@ public interface TayAoService {
 
     List<TayAo> getAllDangHoatDong();
 
+
     List<TayAo> getAllNgungHoatDong();
 
     void deleteById(Long id);
@@ -27,6 +28,7 @@ public interface TayAoService {
     TayAo getById(Long id);
 
     boolean isTenValid(String ten);
+
 
 
 }

@@ -8,7 +8,6 @@ import java.util.List;
 public interface KichCoService {
 
     List<KichCo> findAll();
-
     List<KichCo> getAllDangHoatDong();
 
     List<KichCo> getAllNgungHoatDong();

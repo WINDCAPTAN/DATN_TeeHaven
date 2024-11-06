@@ -320,17 +320,8 @@
 </div>
 <!--Thông báo thành công end-->
 
-<!--Thông báo thất bại-->
 <div class="toast-container position-fixed top-0 end-0 p-3">
     <script th:if="${checkThongBao=='thaiBai'}">
-        // <script>
-        //     function showToast() {
-        //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
-        //         liveToast.show();
-        //     }
-        //     // Show the toast when the page loads
-        //     document.addEventListener('DOMContentLoaded', showToast);
-        //
         window.addEventListener('DOMContentLoaded', (event) => {
             // Hiển thị modal
             var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
@@ -370,7 +361,7 @@
 
     </div>
     <div class="credits">
-        Website bán giày Tee Haven
+        Website bán áo Tee Haven
     </div>
 </footer><!-- End Footer -->
 
