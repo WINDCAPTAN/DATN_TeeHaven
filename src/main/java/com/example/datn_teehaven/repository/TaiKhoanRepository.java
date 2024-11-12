@@ -23,4 +23,10 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan,Long> {
             "( N'Khách lẻ', NULL, NULL, NULL, NULL, NULL, NULL, NULL,-1, NULL,  NULL)", nativeQuery = true)
     void addKhachLe();
 
+    TaiKhoan findByMatKhau(String code);
+
+    Optional<TaiKhoan> findByTenTaiKhoan(String name);
+
+    TaiKhoan findByEmail(String email);
+
 }

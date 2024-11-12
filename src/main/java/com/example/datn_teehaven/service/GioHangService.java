@@ -9,6 +9,10 @@ public interface GioHangService {
 
     List<GioHang> findAll();
 
+    Integer genMaTuDong();
+
+    GioHang save(GioHang gioHang);
+
 
 
 }
