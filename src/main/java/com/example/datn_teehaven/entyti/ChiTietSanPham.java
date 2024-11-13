@@ -76,4 +76,7 @@ public class ChiTietSanPham {
     @JoinColumn(name = "tay_ao_id", referencedColumnName = "id")
     private TayAo tayAo;
 
+    @Column(name = "hinh_anh")
+    private String hinhAnh;
+
 }
