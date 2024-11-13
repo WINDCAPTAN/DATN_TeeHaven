@@ -11,4 +11,5 @@ public interface GioHangRepository extends JpaRepository<GioHang,Long> {
 
     @Query(value = "SELECT MAX(CONVERT(INT, SUBSTRING(ma_gio_hang,3,10))) from gio_hang",nativeQuery = true)
     Integer index();
+
 }

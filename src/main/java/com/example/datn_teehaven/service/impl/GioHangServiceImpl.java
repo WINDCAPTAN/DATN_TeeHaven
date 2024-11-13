@@ -22,6 +22,12 @@ public class GioHangServiceImpl implements GioHangService {
     }
 
     @Override
+    public GioHang save(GioHang gioHang) {
+        return repository.save(gioHang);
+    }
+
+    @Override
+
     public Integer genMaTuDong() {
 
         String maStr = "";
@@ -42,10 +48,5 @@ public class GioHangServiceImpl implements GioHangService {
         int ma = Integer.parseInt(maStr);
         return ++ma;
 
-    }
-
-    @Override
-    public GioHang save(GioHang gioHang) {
-        return repository.save(gioHang);
     }
 }
