@@ -313,6 +313,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">
+                                                    <span class="dau-sao">*</span>Mật khẩu:</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Nhập mật khẩu" th:field="*{matKhau}">
+                                                <span class="check-loi" th:errors="*{matKhau}"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">
                                                     <span class="dau-sao">*</span>Email:</label>
                                                 <input type="email" class="form-control" placeholder="Nhập email"
                                                        th:field="*{email}">
@@ -497,7 +504,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
 </body>
+<style>
+    /*input tìm kiếm*/
+    #example_filter input[type="search"] {
+        width: 180%;
+        margin-left: -80%;
+        margin-bottom: 10%;
+    }
 
+    /*select hiển thị mục*/
+    .dataTables_length label {
+        white-space: nowrap;
+        /* Ngăn các phần tử xuống dòng */
+        display: flex;
+        /* Hiển thị label và select trên cùng một dòng */
+        align-items: center;
+        /* Canh chỉnh label và select theo chiều dọc */
+    }
+
+    .dataTables_length select {
+        margin-left: 5px;
+        /* Tạo khoảng cách giữa label và select */
+    }
+
+    .dataTables_length label:after {
+        /* Sử dụng pseudo-element :after để ẩn văn bản cuối cùng */
+        content: '';
+        /* Xóa nội dung */
+    }
+</style>
 
 </html>
 
