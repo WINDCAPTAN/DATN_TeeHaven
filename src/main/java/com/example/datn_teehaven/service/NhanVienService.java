@@ -27,9 +27,9 @@ public interface NhanVienService {
 
     boolean checkTenTkTrungSua(Long id,String ten);
 
-    boolean checkTenTaiKhoanTrung(String ten);
-
     boolean checkEmailSua(Long id,String email);
+
+    boolean checkTenTaiKhoanTrung(String ten);
 
     boolean checkEmail(String email);
 
