@@ -29,6 +29,7 @@ public class KichCo {
     private Long id;
 
     @Column(name = "ten")
+    @NotNull(message = "Không được trống kích cỡ")
     private String ten;
 
     @Column(name = "ngay_tao")
