@@ -206,4 +206,14 @@ public class KhachHangServiceImpl implements KhachHangService {
     public void addKhachLe() {
         repository.addKhachLe();
     }
+
+    @Override
+    public void sendEmail(TaiKhoan taiKhoan, String path, String random) {
+
+    }
+
+    @Override
+    public void guiLieuHe(String hoTen, String email, String chuDe, String tinNhan) {
+
+    }
 }
