@@ -26,15 +26,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/ban-hang-tai-quay")
 public class BanHangController {
-// 123456
-    //8386
-    //test1
+
     @Autowired
     private HoaDonService hoaDonService;
 
