@@ -33,6 +33,7 @@ import java.util.List;
 @RequestMapping("/ban-hang-tai-quay")
 public class BanHangController {
 // 123456
+    //8386
     @Autowired
     private HoaDonService hoaDonService;
 
