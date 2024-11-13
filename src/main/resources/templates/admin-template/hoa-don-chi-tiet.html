@@ -13,6 +13,7 @@
     <link href="../../../static/img/logo_teehaven.png" rel="icon">
     <link href="../../../static/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+    <link rel='stylesheet' href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css'>
 
     <!-- Favicons -->
     <div th:replace="~{admin-template/fragment/header :: header}"></div>
@@ -243,8 +244,7 @@
                                         <td>
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <img th:src="${obj.chiTietSanPham.hinhAnh[0]}"
-                                                         class="fixed-image">
+                                                    <img th:src="${obj.chiTietSanPham.hinhAnh}" alt="Hình ảnh sản phẩm" style="width: 100px; height: auto;"/>
                                                 </div>
 
                                                 <div class="col-8">
@@ -314,7 +314,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <p>(Sẵn
-                                                                    [[${obj.ChiTietSanPham.soLuong}]]
+                                                                    [[${obj.chiTietSanPham.soLuong}]]
                                                                     sản phẩm )</p>
                                                                 <input type="number"
                                                                        name="soLuongEdit"
@@ -322,14 +322,14 @@
 
                                                             </div>
                                                             <small
-                                                                    id="errorSoLuongEdit"></small>
+                                                                    id="errorSoLuongEdit" style="color: red"></small>
                                                             <div class="modal-footer">
                                                                 <button type="button"
                                                                         class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Đóng
                                                                 </button>
                                                                 <button
-                                                                        th:onclick="'validateAndSubmit('+${obj.ChiTietSanPham.soLuong}+','+${obj.ChiTietSanPham.soLuong}+','+${obj.id}+')'"
+                                                                        th:onclick="'validateAndSubmit('+${obj.chiTietSanPham.soLuong}+','+${obj.chiTietSanPham.soLuong}+','+${obj.id}+')'"
                                                                         type="button"
                                                                         class="btn btn-primary">Xác
                                                                     nhận
@@ -349,7 +349,7 @@
                                                      tabindex="-1" role="dialog"
                                                      aria-labelledby="modalTitleId1"
                                                      aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-dialog modal-xl" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
@@ -1357,20 +1357,6 @@
 
 
                                         </div>
-                                        <!-- <div class="row">
-                                        <div class="col">
-                                            <h6>Phương thức thanh toán:</h6>
-                                        </div>
-                                        <div class="col" style="margin-top: 1%">
-                                            <select name="ptht" class="form-control">
-                                                <option value="Tiền mặt">Tiền
-                                                    mặt
-                                                </option>
-                                                <option value="Online">Online
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div> -->
                                         <div class="row">
                                             <div class="col">
                                                 <h6>Voucher:</h6>
@@ -1381,16 +1367,6 @@
                                                            id="c_code" disabled
                                                            aria-label="Coupon Code"
                                                            aria-describedby="button-addon2"/>
-                                                    <!--                                                                                <button-->
-                                                    <!--                                                                                    th:if="${hoaDon.taiKhoan.tenTaiKhoan!=null}"-->
-                                                    <!--                                                                                    class="btn btn-primary btn-sm"-->
-                                                    <!--                                                                                    type="button"-->
-                                                    <!--                                                                                    onclick="checkAndDisplayVouchers()"-->
-                                                    <!--                                                                                    data-bs-toggle="modal"-->
-                                                    <!--                                                                                    data-bs-target="#voucher">-->
-                                                    <!--                                                                                    Chọn voucher-->
-                                                    <!--                                                                                </button>-->
-                                                    <!--                                                                                hiện vâu chờ-->
                                                     <button
 
                                                             class="btn btn-primary btn-sm"
@@ -1767,10 +1743,8 @@
                                                     th:text="${state.index+1}"></th>
                                                 <td style="width: 50%;">
                                                     <div class="row">
-                                                        <div class="col-4"
-                                                             th:if="${!#lists.isEmpty(ctsp.hinhAnh)}">
-                                                            <img th:src="${ctsp.hinhAnh[0]}"
-                                                                 class="fixed-image">
+                                                        <div class="col-4">
+                                                        <img th:src="${ctsp.hinhAnh}" alt="Hình ảnh sản phẩm" style="width: 100px; height: auto;"/>
                                                         </div>
 
                                                         <div class="col-8">
@@ -1856,18 +1830,180 @@
 <div th:replace="~{admin-template/fragment/script :: script}"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.js'></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            "language": {
+                "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ kết quả",
+                "emptyTable": "Không có kết quả nào được tìm thấy",
+                "zeroRecords": "Không có kết quả phù hợp",
+                "infoEmpty": "Không có dữ liệu để hiển thị"
+            },
+            "initComplete": function (settings, json) {
+                // CSS changes
+                $('#example_filter input[type="search"]').addClass('form-control');
+                $('#example_filter input[type="search"]').attr('placeholder', 'Tìm kiếm');
+                $('#example_filter label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).replaceWith(' ');
+
+                $('#example_length label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).first().replaceWith('Hiển thị');
+                $('#example_length label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).last().replaceWith('mục');
+
+                $('#example_length select').addClass('form-select');
+            }
+        });
+
+        table.on('draw.dt', function () {
+            var pageInfo = table.page.info();
+
+            var newInfo = 'Hiển thị ' + pageInfo.start + ' đến ' + pageInfo.end + ' trong tổng số ' + pageInfo.recordsDisplay + ' kết quả';
+            $('#example_info').html(newInfo);
+
+        });
+    });
+
+    $(document).ready(function () {
+        var table = $('#example1').DataTable({
+            "language": {
+                "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ kết quả",
+                "emptyTable": "Không có kết quả nào được tìm thấy",
+                "zeroRecords": "Không có kết quả phù hợp",
+                "infoEmpty": "Không có dữ liệu để hiển thị"
+            },
+            "initComplete": function (settings, json) {
+                // CSS changes
+                $('#example1_filter input[type="search"]').addClass('form-control');
+                $('#example1_filter input[type="search"]').attr('placeholder', 'Tìm kiếm');
+                $('#example1_filter label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).replaceWith(' ');
+
+                $('#example1_length label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).first().replaceWith('Hiển thị');
+                $('#example1_length label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).last().replaceWith('mục');
+
+                $('#example1_length select').addClass('form-select');
+            }
+        });
+
+        table.on('draw.dt', function () {
+            var pageInfo = table.page.info();
+
+            var newInfo = 'Hiển thị ' + pageInfo.start + ' đến ' + pageInfo.end + ' trong tổng số ' + pageInfo.recordsDisplay + ' kết quả';
+            $('#example1_info').html(newInfo);
+
+        });
+    });
+
+    $(document).ready(function () {
+        var table = $('#example2').DataTable({
+            "language": {
+                "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ kết quả",
+                "emptyTable": "Không có kết quả nào được tìm thấy",
+                "zeroRecords": "Không có kết quả phù hợp",
+                "infoEmpty": "Không có dữ liệu để hiển thị"
+            },
+            "initComplete": function (settings, json) {
+                // CSS changes
+                $('#example2_filter input[type="search"]').addClass('form-control');
+                $('#example2_filter input[type="search"]').attr('placeholder', 'Tìm kiếm');
+                $('#example2_filter label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).replaceWith(' ');
+
+                $('#example2_length label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).first().replaceWith('Hiển thị');
+                $('#example2_length label').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).last().replaceWith('mục');
+
+                $('#example2_length select').addClass('form-select');
+            }
+        });
+
+        table.on('draw.dt', function () {
+            var pageInfo = table.page.info();
+
+            var newInfo = 'Hiển thị ' + pageInfo.start + ' đến ' + pageInfo.end + ' trong tổng số ' + pageInfo.recordsDisplay + ' kết quả';
+            $('#example2_info').html(newInfo);
+
+        });
+    });
+</script>
 <style>
     .modal-dialog {
+        max-width: 70%;
         position: relative;
-        right: -27%; /* Đẩy modal sang bên phải */
+        right: -35%; /* Đẩy modal sang bên phải */
         transform: translateX(0); /* Đảm bảo modal không bị dịch chuyển thêm */
+    }
+</style>
+<style>
+    /*input tìm kiếm*/
+    #example_filter input[type="search"] {
+        width: 180%;
+        margin-left: -80%;
+        margin-bottom: 10%;
+    }
+
+    /*select hiển thị mục*/
+    .dataTables_length label {
+        white-space: nowrap;
+        /* Ngăn các phần tử xuống dòng */
+        display: flex;
+        /* Hiển thị label và select trên cùng một dòng */
+        align-items: center;
+        /* Canh chỉnh label và select theo chiều dọc */
+    }
+
+    .dataTables_length select {
+        margin-left: 5px;
+        /* Tạo khoảng cách giữa label và select */
+    }
+
+    .dataTables_length label:after {
+        /* Sử dụng pseudo-element :after để ẩn văn bản cuối cùng */
+        content: '';
+        /* Xóa nội dung */
+    }
+
+    .errorInput {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+<!--    thư viện của bảng tích hợp tìm kiếm end-->
+
+<!--  css + js chọn voucher-->
+<style>
+    .muted-radio {
+        opacity: 0.5;
+        /* hoặc bất kỳ kiểu định dạng nào bạn muốn để làm mờ */
+        pointer-events: none;
+        /* Ngăn chặn sự kiện click */
+    }
+
+    .muted-card {
+        opacity: 0.5;
+        /* hoặc kiểu định dạng mờ khác */
     }
 </style>
 <script>
     function handleRadioVoucher(rowIndex) {
         var index = rowIndex.getAttribute('data-index');
         if (index == null) {
-            index
+            indẽ
         }
         console.log(index)
         // Tách chuỗi thành mảng các phần tử (số)
@@ -1956,6 +2092,141 @@
         location.reload();
     }
 </script>
+<!--  css + js chọn voucher-->
+<script src="../../static/js/banHangValid.js"></script>
+<script>
+
+    function disabledInput() {
+        const checkGiaoHang = document.getElementById('toggleVisibility')
+        const inputHoVaTen = document.getElementById('inputHoVaTen')
+        const inputSoDienThoai = document.getElementById('inputSoDienThoai')
+        const citySelect = document.getElementById('citySelect')
+        const districtSelect = document.getElementById('districtSelect')
+        const wardSelect = document.getElementById('wardSelect')
+        const inputDiaChiCuThe = document.getElementById('inputDiaChiCuThe')
+        const inputGhiChu = document.getElementById('inputGhiChu')
+
+        checkGiaoHang.disabled = true;
+        inputHoVaTen.readOnly = true;
+        inputSoDienThoai.readOnly = true;
+        citySelect.disabled = true;
+        districtSelect.disabled = true;
+        wardSelect.disabled = true;
+        inputDiaChiCuThe.readOnly = true;
+        inputGhiChu.readOnly = true;
+    }
+
+    if ('[[${hoaDon.trangThai}]]' != 0 && '[[${hoaDon.trangThai}]]' != 1 && '[[${hoaDon.trangThai}]]' != -1 && '[[${hoaDon.trangThai}]]' != 4) {
+        disabledInput();
+    }
+
+
+</script>
+<!--Thông báo thành công-->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <script th:if="${checkThongBao=='thanhCong'}">
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Hiển thị modal
+            var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+            liveToast.show();
+        });
+    </script>
+
+    <div id="liveToastSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+         style="  background-color: rgba(62, 189, 97,0.2);border:2px solid #3ebd61;  border-radius:1rem;">
+        <div class="toast-body">
+            <div class="row g-3">
+                <div class="col-md-2">
+                    <img src="../../../static/img/successful_notification.png" alt="" style="margin: auto">
+                </div>
+                <div class="col-md-8" style=" margin-top:6.3%">
+                        <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: #3ebd61;">
+                            [[${thongBao}]]</span>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                            style="font-size: 1.5rem;margin: auto"></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Thông báo thành công end-->
+
+<!--Thông báo cảnh báo-->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <script th:if="${checkThongBao=='canhBao'}">
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Hiển thị modal
+            var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
+            liveToast.show();
+        });
+    </script>
+    <div id="liveToastWarning" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+         style=" background-color: rgba(239, 148, 0, 0.2);border:2px solid #fcca1b;  border-radius:1rem;">
+        <div class="toast-body">
+            <div class="row g-3">
+                <div class="col-md-2">
+                    <img src="../../../static/img/successful_warning.png" alt="" style="margin: auto">
+                </div>
+                <div class="col-md-8" style=" margin-top:6.3%">
+                        <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: #fcca1b;">
+                            [[${thongBao}]]</span>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                            style="font-size: 1.5rem;margin: auto"></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Thông báo cảnh báo end-->
+
+<!--Thông báo thất bại-->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <script th:if="${checkThongBao=='thatBai'}">
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Hiển thị modal
+            var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
+            liveToast.show();
+        });
+    </script>
+    <div id="liveToastDanger" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+         style="background-color: rgb(252,134,134);border:2px solid #ff2020;border-radius:1rem;">
+        <div class="toast-body">
+            <div class="row g-3">
+                <div class="col-md-2">
+                    <img src="../../../static/img/successful_danger.png" alt="" style="margin: auto">
+                </div>
+                <div class="col-md-8" style=" margin-top:6.3%">
+                        <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: white;">
+                            [[${thongBao}]]</span>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                            style="font-size: 1.5rem;margin: auto"></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

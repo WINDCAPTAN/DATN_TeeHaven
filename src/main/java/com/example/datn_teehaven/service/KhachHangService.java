@@ -34,9 +34,9 @@ public interface KhachHangService {
 
     void addKhachLe();
 
-//    void sendEmail(TaiKhoan taiKhoan, String path, String random);
-//
-//    void guiLieuHe(String hoTen,String email,String chuDe,String tinNhan);
+    void sendEmail(TaiKhoan taiKhoan, String path, String random);
+
+    void guiLieuHe(String hoTen,String email,String chuDe,String tinNhan);
 
 
 }

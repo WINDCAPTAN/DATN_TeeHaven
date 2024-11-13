@@ -97,6 +97,7 @@ public class SanPhamController {
             return "admin-template/san_pham/san-pham";
         } else {
             redirectAttributes.addFlashAttribute("checkThongBao", "thanhCong");
+            sanPham.setMa("SP"+ sanPhamService.genMaTuDong());
             sanPham.setSoLuongTon(0);
             sanPham.setNgayTao(Date.valueOf(LocalDate.now()));
             sanPham.setTrangThai(0);
