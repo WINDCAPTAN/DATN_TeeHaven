@@ -37,16 +37,19 @@ public class ChiTietSanPham {
     private Long id;
 
     @Column(name = "so_luong")
+    @NotNull(message = "Số lượng không được trống.")
+    @Min(value = 0, message = "Số lượng nhỏ nhất là 0")
+    @Max(value = 99999, message = "Số lượng lớn nhất là 99999")
     private Integer soLuong;
 
     @Column(name = "trang_thai")
     private Integer trangThai;
 
     @Column(name = "gia_hien_hanh")
+    @NotNull(message = "Giá không được trống.")
+    @Min(value = 1, message = "Giá  nhỏ nhất là 1")
+    @Max(value = 1000000000, message = "Giá lớn nhất là 1000000000")
     private Long giaHienHanh;
-
-    @Column(name = "hinh_anh")
-    private String hinhAnh;
 
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
