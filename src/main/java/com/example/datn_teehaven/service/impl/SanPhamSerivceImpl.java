@@ -20,27 +20,19 @@ import java.util.List;
 public class SanPhamSerivceImpl implements SanPhamSerivce {
 
     @Autowired
-    private SanPhamRepository repository;
-
-    @Autowired
     private SanPhamRepository sanPhamRepo;
 
     @Override
     public List<SanPham> getAll() {
         Sort sort = Sort.by(Sort.Direction.DESC, "ngaySua");
 
-        return repository.findAll(sort);
+        return sanPhamRepo.findAll(sort);
 
     }
 
-
-
-
-
-
     @Override
     public SanPham add(SanPham sanPham) {
-        return repository.save(sanPham);
+        return sanPhamRepo.save(sanPham);
     }
 
     @Override

@@ -144,7 +144,7 @@ public class TayAoController {
             return "/admin-template/tay_ao/them-tay-ao"; // Giữ nguyên trang
         }
 
-        // Lưu thông báo và thêm kích cỡ
+        // Lưu thông báo và thêm kích cỡ 1
         tayAo.setNgayTao(new Date());
         tayAo.setNgaySua(new Date());
         tayAo.setTrangThai(0);
