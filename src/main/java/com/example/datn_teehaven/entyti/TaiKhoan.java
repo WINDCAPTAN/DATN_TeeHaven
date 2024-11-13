@@ -104,14 +104,6 @@ public class TaiKhoan {
     @OneToOne(mappedBy = "taiKhoan")
     GioHang gioHang;
 
-    public boolean isValidNgaySinh() {
-        if (ngaySinh != null) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(ngaySinh);
-            int year = cal.get(Calendar.YEAR);
-            return year >= 1900;
-        }
-        return true; // Truong ngaySinh co the de trong
-    }
+
 
 }

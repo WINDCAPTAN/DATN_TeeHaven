@@ -34,6 +34,7 @@ import java.util.List;
 public class BanHangController {
 // 123456
     //8386
+    //test1
     @Autowired
     private HoaDonService hoaDonService;
 
