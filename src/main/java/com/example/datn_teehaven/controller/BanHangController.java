@@ -291,7 +291,7 @@ public class BanHangController {
         return "/admin-template/detail-hoa-don";
     }
 
-    //123456789
+    //12345678910
     @PostMapping("/hoa-don-chi-tiet/update")
     public String updateSoLuong(RedirectAttributes redirectAttributes,
                                 @RequestParam(defaultValue = "") Integer soLuongEdit,
