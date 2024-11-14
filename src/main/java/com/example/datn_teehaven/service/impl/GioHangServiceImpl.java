@@ -15,6 +15,7 @@ public class GioHangServiceImpl implements GioHangService {
 
     @Autowired
     private GioHangRepository repository;
+
     @Override
     public List<GioHang> findAll() {
         return null;
@@ -26,6 +27,7 @@ public class GioHangServiceImpl implements GioHangService {
     }
 
     @Override
+
     public Integer genMaTuDong() {
 
         String maStr = "";

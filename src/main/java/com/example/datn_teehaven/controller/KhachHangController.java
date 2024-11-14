@@ -39,8 +39,6 @@ public class KhachHangController {
     GioHangService gioHangService;
 
 
-
-
     @GetMapping()
     public String hienThi(Model model) {
 

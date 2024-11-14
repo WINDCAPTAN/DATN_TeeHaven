@@ -26,13 +26,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/ban-hang-tai-quay")
 public class BanHangController {
-// 123
+
+
     @Autowired
     private HoaDonService hoaDonService;
 
@@ -291,7 +291,7 @@ public class BanHangController {
         return "/admin-template/detail-hoa-don";
     }
 
-    //12345678
+    //12345678910
     @PostMapping("/hoa-don-chi-tiet/update")
     public String updateSoLuong(RedirectAttributes redirectAttributes,
                                 @RequestParam(defaultValue = "") Integer soLuongEdit,
