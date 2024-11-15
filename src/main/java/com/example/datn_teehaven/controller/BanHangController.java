@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -38,7 +39,8 @@ import java.util.Random;
 @RequestMapping("/ban-hang-tai-quay")
 public class BanHangController {
 
-
+    @Autowired
+    HttpServletRequest request;
     @Autowired
     private HoaDonService hoaDonService;
 
@@ -69,6 +71,8 @@ public class BanHangController {
         }
     }
 
+    List<HoaDonChiTiet> lstHoaDonCtDoiTra = new ArrayList<>();
+
     @GetMapping("/hoa-don")
     public String home(Model model) {
         model.addAttribute("lstHoaDon", hoaDonService.find5ByTrangThai(-1));
@@ -98,6 +102,7 @@ public class BanHangController {
         }
         return "redirect:/ban-hang-tai-quay/hoa-don";
     }
+
     void thongBao(RedirectAttributes redirectAttributes, String thongBao, int trangThai) {
         if (trangThai == 0) {
             redirectAttributes.addFlashAttribute("checkThongBao", "thatBai");
@@ -112,6 +117,7 @@ public class BanHangController {
         }
 
     }
+
     @GetMapping("/hoa-don/{id}")
     public String hoaDon(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         chiTietSanPhamSerivce.checkSoLuongBang0();
@@ -138,7 +144,7 @@ public class BanHangController {
                 hd.setTongTienKhiGiam(hd.tongTienHoaDonDaNhan());
                 hoaDonService.saveOrUpdate(hd);
                 ctb = true;
-                 thongBao(redirectAttributes, "Đã xóa mã giảm giá vì chưa đạt giá trị đơn tối thiếu", 0);
+                thongBao(redirectAttributes, "Đã xóa mã giảm giá vì chưa đạt giá trị đơn tối thiếu", 0);
             }
         }
         if (ctb) {
@@ -356,6 +362,7 @@ public class BanHangController {
             return "redirect:/ban-hang-tai-quay/hoa-don/detail/" + hd.getId();
         }
     }
+
     void updateSoLuongRollBack(Long idhdc) {
         HoaDon hd = hoaDonService.findById(idhdc);
         List<ChiTietSanPham> lstCtsp = chiTietSanPhamSerivce.getAll();
@@ -375,6 +382,7 @@ public class BanHangController {
         }
 
     }
+
     @PostMapping("/hoa-don/rollback/{id}")
     public String rollback(@RequestParam String ghiChu, @PathVariable Long id, RedirectAttributes redirectAttributes) {
         HoaDon hd = hoaDonService.findById(id);
@@ -438,6 +446,7 @@ public class BanHangController {
         }
 
     }
+
     private void updateSL(HoaDon hd) {
         List<HoaDonChiTiet> lstHdct = hoaDonService.findById(hd.getId()).getLstHoaDonChiTiet();
         for (HoaDonChiTiet hdct : lstHdct) {
@@ -456,6 +465,7 @@ public class BanHangController {
             voucherService.save(v);
         }
     }
+
     public void addLichSuHoaDon(Long idHoaDon, String ghiChu, Integer trangThai) {
         HoaDon hd = hoaDonService.findById(idHoaDon);
         LichSuHoaDon lshd = new LichSuHoaDon();
@@ -773,20 +783,6 @@ public class BanHangController {
         return "redirect:/ban-hang-tai-quay/hoa-don/detail/" + idhdc;
     }
 
-    @GetMapping("/hoa-don/quan-ly")
-    public String quanLyHoaDon(Model model) {
-        model.addAttribute("lstHdctAll", hoaDonService.findAllOrderByNgaySua());
-        model.addAttribute("lstHdChoXacNhan", hoaDonService.find5ByTrangThai(0));
-        model.addAttribute("lstHdChoGiao", hoaDonService.find5ByTrangThai(1));
-        model.addAttribute("lstHdDangGiao", hoaDonService.find5ByTrangThai(2));
-        model.addAttribute("lstHdHoanThanh", hoaDonService.find5ByTrangThai(3));
-        model.addAttribute("lstHdChoThanhToan", hoaDonService.find5ByTrangThai(4));
-        model.addAttribute("lstHdHuy", hoaDonService.find5ByTrangThai(5));
-        model.addAttribute("lstHdTra", hoaDonService.find5ByTrangThai(6));
-
-        return "/admin-template/hoa-don";
-    }
-
     @PostMapping("/khach-hang/them-nhanh")
     public String add(@ModelAttribute("khachHang") TaiKhoan taiKhoan, @RequestParam Long idhdc,
                       Model model,
@@ -865,5 +861,27 @@ public class BanHangController {
         return ran;
     }
 
+    @GetMapping("/hoa-don/quan-ly")
+    public String quanLyHoaDon(Model model) {
+        List<HoaDon> lstHdctAll = hoaDonService.findAllHoaDon();
+        List<HoaDon> lstHdChoXacNhan = hoaDonService.find5ByTrangThai(0);
+        List<HoaDon> lstHdChoGiao = hoaDonService.find5ByTrangThai(1);
+        List<HoaDon> lstHdDangGiao = hoaDonService.find5ByTrangThai(2);
+        List<HoaDon> lstHdHoanThanh = hoaDonService.find5ByTrangThai(3);
+        List<HoaDon> lstHdChoThanhToan = hoaDonService.find5ByTrangThai(4);
+        List<HoaDon> lstHdHuy = hoaDonService.find5ByTrangThai(5);
+        List<HoaDon> lstHdTra = hoaDonService.find5ByTrangThai(6);
+
+        model.addAttribute("lstHdctAll", lstHdctAll != null ? lstHdctAll : new ArrayList<>());
+        model.addAttribute("lstHdChoXacNhan", lstHdChoXacNhan);
+        model.addAttribute("lstHdChoGiao", lstHdChoGiao);
+        model.addAttribute("lstHdDangGiao", lstHdDangGiao);
+        model.addAttribute("lstHdHoanThanh", lstHdHoanThanh);
+        model.addAttribute("lstHdChoThanhToan", lstHdChoThanhToan);
+        model.addAttribute("lstHdHuy", lstHdHuy);
+        model.addAttribute("lstHdTra", lstHdTra);
+
+        return "admin-template/hoa-don";
+    }
 
 }
