@@ -465,10 +465,7 @@ public class BanHangController {
         lshd.setHoaDon(hd);
         lshd.setGhiChu(ghiChu);
         lshd.setTrangThai(trangThai);
-        // lshd.setNgayTao(new Date());
-//        TaiKhoan tk = nhanVienService.getById(idTk);
-//        System.out.println(tk + "====================");
-//        lshd.setNguoiSua(tk.getHoVaTen());
+
         lichSuHoaDonService.saveOrUpdate(lshd);
     }
 
