@@ -5,6 +5,7 @@ package com.example.datn_teehaven.service.impl;
 import com.example.datn_teehaven.entyti.HoaDon;
 import com.example.datn_teehaven.repository.HoaDonRepository;
 import com.example.datn_teehaven.service.HoaDonService;
+import com.example.datn_teehaven.service.LichSuHoaDonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class HoaDonServiceImpl implements HoaDonService {
 
     @Autowired
     private HoaDonRepository hoaDonRepository;
+
+    @Autowired
+    LichSuHoaDonService lichSuHoaDonService;
     @Override
     public List<HoaDon> findAll() {
         return hoaDonRepository.findAll();
@@ -37,10 +41,6 @@ public class HoaDonServiceImpl implements HoaDonService {
         hoaDonRepository.save(hoaDon);
     }
 
-    @Override
-    public List<HoaDon> findByTrangThai(Integer trangThai) {
-        return hoaDonRepository.findByTrangThai(trangThai);
-    }
 
     @Override
     public Integer countHoaDonTreo() {
@@ -52,94 +52,12 @@ public class HoaDonServiceImpl implements HoaDonService {
         return hoaDonRepository.find5ByTrangThai(trangThai);
     }
 
-    @Override
-    public HoaDon findByMa(String ma) {
-        return null;
-    }
+
 
     @Override
-    public HoaDon finByHoaDonMaHDSdt(String maDonHang, String sdt) {
-        return null;
+    public List<HoaDon> findAllHoaDon() {
+        return hoaDonRepository.findAllHoaDon();
     }
 
-    @Override
-    public List<HoaDon> findAllOrderByNgaySua() {
-        return null;
-    }
-
-    @Override
-    public List<HoaDon> getAllHoaDonByTaiKhoanOrderByNgaySua(Long idTaiKhoan) {
-        return null;
-    }
-
-    @Override
-    public List<HoaDon> getHoaDonByTaiKhoanByTrangThaiOrderByNgaySua(Long idTaiKhoan, Integer trangThai) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDonDay(Date ngayTao) {
-        return null;
-    }
-
-    @Override
-    public Long sumHoaDonDay(Date ngayTao) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDonMonth(Date ngayTao) {
-        return null;
-    }
-
-    @Override
-    public Long sumHoaDonMonth(Date ngayTao) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDon(Integer trangThai) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDonBetween(Date startDate, Date endDate) {
-        return null;
-    }
-
-    @Override
-    public Long sumGiaTriHoaDonBetween(Date startDate, Date endDate) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDonTrangThaiBetween(Date startDate, Date endDate, Integer trangThai) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDonTrangThaiNgay(Date ngayTao, Integer trangThai) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDonTrangThaiThang(Date ngayTao, Integer trangThai) {
-        return null;
-    }
-
-    @Override
-    public Integer countHoaDonAll() {
-        return null;
-    }
-
-    @Override
-    public Long sumGiaTriHoaDonAll() {
-        return null;
-    }
-
-    @Override
-    public void guiHoaDonDienTu(HoaDon hoaDon, String url) {
-
-    }
 
 }

@@ -84,7 +84,6 @@
                         <i class="bi bi-circle"></i><span>Tay áo </span>
 
 
-
                     </a>
                 </li>
                 <li>
@@ -177,7 +176,6 @@
                         <!--     tìm kiếm theo trạng thái end-->
 
 
-
                         <!-- Modal thêm thuộc tính -->
                         <div class="modal fade" id="them-tay-ao" tabindex="-1" aria-labelledby="them-tay-aoLabel"
                              aria-hidden="true">
@@ -209,7 +207,7 @@
                                                         style="color: red;">*</span>Kích Cỡ</label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" id="themThuongHieu"
-                                                           placeholder="Nhập kích cỡ"  th:field="*{ten}" >
+                                                           placeholder="Nhập kích cỡ" th:field="*{ten}">
                                                     <span class="check-loi" th:errors="*{ten}"></span>
                                                     <span class="check-loi" th:text="${checkTenTrung}"></span>
 
@@ -245,8 +243,8 @@
                             <tr th:each="tayAo,iterStat : ${listTayAo}">
                                 <td th:text="${iterStat.index+1}"></td>
                                 <td th:text="${tayAo.ten}"></td>
-                                <td class="trangthaidkd" th:if="${tayAo.trangThai==0}">Đang kinh doanh</td>
-                                <td class="trangthainkd" th:if="${tayAo.trangThai==1}">Ngừng kinh doanh</td>
+                                <td class="trangthaidkd" th:if="${tayAo.trangThai==0}">Đang hoạt động</td>
+                                <td class="trangthainkd" th:if="${tayAo.trangThai==1}">Ngừng hoạt động</td>
                                 <td>
                                     <a th:href="@{/admin/tay-ao/view-update/{id}(id=${tayAo.id})}"
                                        class="btn btn-warning">
@@ -274,20 +272,7 @@
 <!--Thông báo thành công-->
 <div class="toast-container position-fixed top-0 end-0 p-3">
     <script th:if="${checkThongBao=='thanhCong'}">
-        // <script>
-        //     function showToast() {
-        //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
-        //         liveToast.show();
-        //
-        //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
-        //         liveToast.show();
-        //
-        //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
-        //         liveToast.show();
-        //     }
-        //     // Show the toast when the page loads
-        //     document.addEventListener('DOMContentLoaded', showToast);
-        //
+
         window.addEventListener('DOMContentLoaded', (event) => {
             // Hiển thị modal
             var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
@@ -304,8 +289,8 @@
                 <div class="col-md-8" style=" margin-top:6.3%">
                     <span style="
                     text-align: center;
-                    font-size: 1rem; /* Kích thước phông chữ */
-                    font-weight: bold; /* Độ đậm của chữ */
+                    font-size: 1rem;
+                    font-weight: bold;
                     color: #3ebd61;">
                         Thành công</span>
                 </div>
