@@ -153,6 +153,4 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
 
 
 
-
-
 }

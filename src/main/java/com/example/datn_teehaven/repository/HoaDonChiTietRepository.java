@@ -37,9 +37,8 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, Lo
             "\tdon_gia,\n" +
             "\tghi_chu,\n" +
             "\tngay_tao,\n" +
-            "\tngay_sua,\n" +
             "\tnguoi_tao,\n" +
-            "\tnguoi_sua,\n" +
+//            "\tnguoi_sua,\n" +
             "    hoa_don_id,\n" +
             "    chi_tiet_san_pham_id,\n" +
             "    trang_thai\n" +
