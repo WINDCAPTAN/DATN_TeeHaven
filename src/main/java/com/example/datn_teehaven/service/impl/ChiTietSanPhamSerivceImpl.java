@@ -25,7 +25,35 @@ import java.util.List;
 
 @Service
 public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
+    @Override
+    public List<Long> getAllIdMauSacCTSP() {
+        return repository.getAllIdMauSacCTSP();
+    }
 
+    @Override
+    public List<Long> getAllIdKichCoCTSP() {
+        return repository.getAllIdKichCoCTSP();
+    }
+
+    @Override
+    public List<Long> getAllIdTayAoCTSP() {
+        return repository.getAllIdTayAoCTSP();
+    }
+
+    @Override
+    public List<Long> getAllIdThuongHieuCTSP() {
+        return repository.getAllIdThuongHieuCTSP();
+    }
+
+    @Override
+    public Long getAllMinGiaCTSP() {
+        return repository.getAllMinGiaCTSP();
+    }
+
+    @Override
+    public Long getAllMaxGiaCTSP() {
+        return repository.getAllMaxGiaCTSP();
+    }
 
     @Autowired
     private ChiTietSanPhamRepository repository;
@@ -153,12 +181,7 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
 
     }
 
-    @Override
-    public ChiTietSanPham saveExcel(ChiTietSanPham chiTietSanPham) {
 
-        return repository.save(chiTietSanPham);
-
-    }
 
     @Override
     public void remove(Long id) {

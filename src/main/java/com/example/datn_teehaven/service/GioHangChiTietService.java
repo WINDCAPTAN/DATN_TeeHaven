@@ -10,6 +10,7 @@ public interface GioHangChiTietService {
 
     List<GioHangChiTiet> findAll();
 
+    Integer soLuongSPGioHangCT(Long idGioHang);
 
 
 }
