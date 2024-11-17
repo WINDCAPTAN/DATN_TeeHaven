@@ -58,6 +58,20 @@ public interface ChiTietSanPhamSerivce {
                                          List<Long> idKichCo,
                                          List<Long> idTayAo, List<Long> idThuongHieu, Long minGia, Long maxGia);
 
+    List<Long> getAllIdMauSacCTSP();
 
+    List<Long> getAllIdKichCoCTSP();
+
+    List<Long> getAllIdTayAoCTSP();
+
+    List<Long> getAllIdThuongHieuCTSP();
+
+    Long getAllMinGiaCTSP();
+
+    Long getAllMaxGiaCTSP();
+
+    Integer checkPage(Integer page);
+
+    List<Object[]> danhSachHangSapHet(Integer soLuong);
 
 }
