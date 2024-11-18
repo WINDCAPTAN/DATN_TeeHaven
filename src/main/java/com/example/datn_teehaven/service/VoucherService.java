@@ -20,7 +20,7 @@ public interface VoucherService {
 
     List<Voucher> fillAll();
 
-    List<Voucher> fillDangDienRaAndSapDienRa();
+
 
     List<Voucher> fillAllDaKetThuc();
 
@@ -30,7 +30,7 @@ public interface VoucherService {
 
     boolean checkMaTrung(String ma);
 
-    boolean checkMaTrungSua(String ma, String ten);
+
 
     boolean checkTenTrung(String ten);
 

@@ -48,10 +48,7 @@ public class VoucherServiceImpl implements VoucherService {
         return voucherRepository.fillAll();
     }
 
-    @Override
-    public List<Voucher> fillDangDienRaAndSapDienRa() {
-        return voucherRepository.fillDangDienRaAndSapDienRa();
-    }
+
 
     @Override
     public List<Voucher> fillAllDaKetThuc() {
@@ -79,17 +76,7 @@ public class VoucherServiceImpl implements VoucherService {
         return true;
     }
 
-    @Override
-    public boolean checkMaTrungSua(String ma, String ten) {
-        for (Voucher sp : voucherRepository.findAll()) {
-            if (sp.getMaVoucher().equalsIgnoreCase(ma)) {
-                if (!sp.getTenVoucher().equalsIgnoreCase(ten)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
 
     @Override
     public boolean checkTenTrung(String ten) {

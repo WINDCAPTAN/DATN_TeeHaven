@@ -411,8 +411,7 @@ public class BanHangController {
                     hd.setTrangThai(tt);
                 }
             } else {
-                // System.out.println("sizee------" +
-                // lichSuHoaDonService.findByIdhdNgaySuaAsc(idhdc).size());
+
                 if (lichSuHoaDonService.findByIdhdNgaySuaAsc(hd.getId()).size() == 1 && hd.getLoaiHoaDon() == 2) {
                     updateSoLuongRollBack(hd.getId());
 
@@ -423,25 +422,19 @@ public class BanHangController {
 
                     hd.setTrangThai(0);
 
-//                } else if (hd.getTrangThai() == 6) {
-//                    rollbackHoanTra(hd.getId());
-//                    hd.setTrangThai(3);
                 } else {
                     hd.setTrangThai(hd.getTrangThai() - 1);
                 }
 
             }
         }
-        // if (hd.getTrangThai() == 1) {
-        // updateSoLuongRollBack();
 
-        // }
         hoaDonService.saveOrUpdate(hd);
         if (hd.getTrangThai() == -1) {
-//            thongBao(redirectAttributes, "Thành công", 1);
+
             return "redirect:/ban-hang-tai-quay/hoa-don/" + hd.getId();
         } else {
-//            thongBao(redirectAttributes, "Thành công", 1);
+
             return "redirect:/ban-hang-tai-quay/hoa-don/detail/" + hd.getId();
         }
 
@@ -518,7 +511,7 @@ public class BanHangController {
         addLichSuHoaDon(idHoaDon, ghiChu, hd.getTrangThai());
         hoaDonService.saveOrUpdate(hd);
         System.out.println(ghiChu + "ghiChu");
-//        sendMail(hd);
+
         if (detail.equals("ok")) {
             hd.setTongTien(hd.tongTienHoaDon());
             hd.setTongTienKhiGiam(hd.tongTienHoaDon() - giamGia);
@@ -640,7 +633,6 @@ public class BanHangController {
                     hd.setThanhPho(thanhPho);
                     hd.setQuanHuyen(quanHuyen);
                     hd.setPhuongXa(phuongXa);
-//                    sendMail(hd);
                     if (luuDiaChi.equals("on") && hd.getTaiKhoan().getTenTaiKhoan() != null) {
                         if (hd.getTaiKhoan().getLstDiaChi().size() < 5) {
                             DiaChi dc = new DiaChi();
@@ -666,7 +658,6 @@ public class BanHangController {
                     hd.setQuanHuyen(null);
                     hd.setThanhPho(null);
                     hd.setPhuongXa(null);
-//                    sendMail(hd);
                     if (hd.getNguoiNhan() == null) {
                         hd.setNguoiNhan("Khách lẻ");
                     }
@@ -818,7 +809,6 @@ public class BanHangController {
             System.out.println(userInfo);
             userInfo.setNgayTao(new java.util.Date());
             userInfo.setNgaySua(new java.util.Date());
-//            userInfo.setMatKhau(passwordEncoder.encode(random3));
             VaiTro vaiTro = new VaiTro();
             vaiTro.setId(Long.valueOf(2));
             userInfo.setVaiTro(vaiTro);
@@ -826,14 +816,6 @@ public class BanHangController {
             userInfo.setVaiTro(vaiTro);
             khachHangService.update(userInfo);
 
-//            GioHang gioHang = new GioHang();
-//            gioHang.setMaGioHang("GH" + gioHangService.genMaTuDong());
-//            gioHang.setGhiChu("");
-//            gioHang.setNgaySua(new Date());
-//            gioHang.setNgayTao(new Date());
-//            gioHang.setTaiKhoan(TaiKhoan.builder().id(userInfo.getId()).build());
-//            gioHang.setTrangThai(0);
-//            gioHangService.save(gioHang);
 
             return "redirect:/ban-hang-tai-quay/hoa-don/" + idhdc;
         }

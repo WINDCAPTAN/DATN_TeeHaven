@@ -43,7 +43,7 @@ import java.util.List;
 @Controller
 public class CustomersController {
 
-    // private Long idTaiKhoan = Long.valueOf(8);12
+
     private Long idTaiKhoan;
 
     @Autowired
@@ -90,11 +90,6 @@ public class CustomersController {
 
     private PrincipalCustom principalCustom = new PrincipalCustom();
 
-//    @GetMapping("/logout/true")
-//    public String logout() {
-//        idTaiKhoan = null;
-//        return "dang-nhap";
-//    }
 
     @GetMapping("/home")
     public String home(
