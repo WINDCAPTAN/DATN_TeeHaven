@@ -197,8 +197,8 @@
                             <tr th:each="gioHangCT : ${listGioHangChiTiet}">
                                 <td class="product-thumbnail">
                                     <input type="hidden" name="allIDGioHangCT" th:value="${gioHangCT.id}">
-                                    <img th:src="@{'../../../static/img/ImgShoe/' + ${gioHangCT.chiTietSanPham.sanPham.listHinhAnhSanPham[0].url}}"
-                                         alt="Image" class="img-fluid"/>
+<!--                                    <img th:src="@{'../../../static/img/ImgShoe/' + ${gioHangCT.chiTietSanPham.sanPham.listHinhAnhSanPham[0].url}}"-->
+<!--                                         alt="Image" class="img-fluid"/>-->
                                 </td>
                                 <td class="product-name">
                                     <h2 class="h5 text-black" th:text="${gioHangCT.chiTietSanPham.sanPham.ten}"></h2>

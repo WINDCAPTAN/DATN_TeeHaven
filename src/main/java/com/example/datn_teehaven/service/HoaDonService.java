@@ -22,8 +22,14 @@ public interface HoaDonService {
 
     List<HoaDon> find5ByTrangThai(Integer trangThai);
 
+    HoaDon finByHoaDonMaHDSdt(String maDonHang, String sdt);
 
 
     List<HoaDon> findAllHoaDon();
+
+    List<HoaDon> getAllHoaDonByTaiKhoanOrderByNgaySua(Long idTaiKhoan);
+
+    List<HoaDon> getHoaDonByTaiKhoanByTrangThaiOrderByNgaySua(Long idTaiKhoan, Integer trangThai);
+
 
 }

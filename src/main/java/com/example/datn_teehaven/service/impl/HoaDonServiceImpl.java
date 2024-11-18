@@ -1,7 +1,6 @@
 package com.example.datn_teehaven.service.impl;
 
 
-
 import com.example.datn_teehaven.entyti.HoaDon;
 import com.example.datn_teehaven.repository.HoaDonRepository;
 import com.example.datn_teehaven.service.HoaDonService;
@@ -21,6 +20,7 @@ public class HoaDonServiceImpl implements HoaDonService {
 
     @Autowired
     LichSuHoaDonService lichSuHoaDonService;
+
     @Override
     public List<HoaDon> findAll() {
         return hoaDonRepository.findAll();
@@ -53,10 +53,28 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
 
-
     @Override
     public List<HoaDon> findAllHoaDon() {
         return hoaDonRepository.findAllHoaDon();
+    }
+
+    @Override
+    public List<HoaDon> getAllHoaDonByTaiKhoanOrderByNgaySua(Long idTaiKhoan) {
+
+        return hoaDonRepository.findAllHoaDonByTaiKhoanOrderByNgaySua(idTaiKhoan);
+
+    }
+
+    @Override
+    public List<HoaDon> getHoaDonByTaiKhoanByTrangThaiOrderByNgaySua(Long idTaiKhoan, Integer trangThai) {
+
+        return hoaDonRepository.findAllHoaDonByTaiKhoanAndTrangThaiOrderByNgaySua(idTaiKhoan, trangThai);
+
+    }
+
+    @Override
+    public HoaDon finByHoaDonMaHDSdt(String maDonHang, String sdt) {
+        return hoaDonRepository.finByHoaDonMaHDSdt(maDonHang, sdt);
     }
 
 
