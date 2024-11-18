@@ -221,4 +221,46 @@ public class ChiTietSanPhamSerivceImpl implements ChiTietSanPhamSerivce {
 
 
     }
+    @Override
+    public List<Long> getAllIdMauSacCTSP() {
+        return repository.getAllIdMauSacCTSP();
+    }
+
+    @Override
+    public List<Long> getAllIdKichCoCTSP() {
+        return repository.getAllIdKichCoCTSP();
+    }
+
+    @Override
+    public List<Long> getAllIdTayAoCTSP() {
+        return repository.getAllIdTayAoCTSP();
+    }
+
+    @Override
+    public List<Long> getAllIdThuongHieuCTSP() {
+        return repository.getAllIdThuongHieuCTSP();
+    }
+
+    @Override
+    public Long getAllMinGiaCTSP() {
+        return repository.getAllMinGiaCTSP();
+    }
+
+    @Override
+    public Long getAllMaxGiaCTSP() {
+        return repository.getAllMaxGiaCTSP();
+    }
+
+    @Override
+    public Integer checkPage(Integer page) {
+        Integer sizeList = repository.findAll().size();
+        Integer pageCount = (int) Math.ceil((double) sizeList / 5);
+        if (page >= pageCount) {
+            page = 0;
+        }else if (page < 0) {
+            page = pageCount-1;
+        }
+        return page;
+    }
+
 }

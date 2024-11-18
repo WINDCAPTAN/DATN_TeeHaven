@@ -121,7 +121,7 @@
         </li><!-- End Tables Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="../admin/voucher">
+            <a class="nav-link collapsed" href="/admin/voucher">
                 <i class="bi bi-ticket-perforated-fill"></i>
                 <span>Quản Lý Voucher</span>
             </a>
@@ -1254,7 +1254,7 @@
                                                       rows="3">[[${hoaDon.ghiChu}]]</textarea>
                                         </div>
                                         <!-- <span th:text="${hoaDon.TaiKhoan.tenTaiKhoan!=null}"></span> -->
-                                        <div th:if="${#lists.size(lstTaiKhoanDc.lstDiaChi) <5&&hoaDon.TaiKhoan.tenTaiKhoan!=null}"
+                                        <div th:if="${#lists.size(lstTaiKhoanDc.lstDiaChi) <5&&hoaDon.taiKhoan.tenTaiKhoan!=null}"
                                              class="row">
                                             <!-- [[${#lists.size(lstTaiKhoanDc.lstDiaChi)}]] -->
                                             <div class="col" style="margin-top: 3%;">
