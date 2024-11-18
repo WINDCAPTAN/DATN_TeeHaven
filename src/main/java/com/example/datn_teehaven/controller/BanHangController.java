@@ -38,7 +38,7 @@ import java.util.Random;
 @Controller
 @RequestMapping("/ban-hang-tai-quay")
 public class BanHangController {
-
+// 123
     @Autowired
     HttpServletRequest request;
     @Autowired
